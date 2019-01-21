@@ -23,6 +23,7 @@ class MainViewController(QMainWindow):
 	@pyqtSlot()
 	def add_event_button(self):
 		self.setWindowTitle('Okay!')
+		print(len(self.buttonGroup_days.buttons()))
 		
 if __name__ == '__main__':
 	app = QApplication(sys.argv)
