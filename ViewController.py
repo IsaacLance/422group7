@@ -11,7 +11,7 @@ from PyQt5.uic import loadUi
 #Table of UI's
 ui_list = ['L0-version0.ui']
 months = ['January', 'Febuary', 'March', 'April','May','June','July','August','September','November','December']
-
+			
 class MainViewController(QMainWindow):
 
 	def __init__(self):
@@ -23,8 +23,13 @@ class MainViewController(QMainWindow):
 		self.pushButton_add.clicked.connect(self.add_event_button)
 		self.pushButton_next.clicked.connect(self.next_month_button)
 		self.pushButton_previous.clicked.connect(self.previous_month_button)
-
-
+		#Button groups
+		self.buttonGroup_days.buttonClicked.connect(self.day_button)
+		
+		#for button in self.buttonGroup_days.buttons():
+			#button.clicked.connect(lambda: self.day_button(button.objectName()))
+			
+	#Slots
 	@pyqtSlot()
 	def add_event_button(self):
 		self.setWindowTitle('Okay!')
@@ -35,8 +40,19 @@ class MainViewController(QMainWindow):
 
 	@pyqtSlot()
 	def previous_month_button(self):
+		#Go back one month. Probably calls determine_day_offset
 		self.label_month.setText()
-
+	
+	@pyqtSlot()
+	def day_button(self):
+		#Currently just prints the name of the button
+		print(self.buttonGroup_days.checkedButton().objectName())
+		#This should load the other .ui and pressing save on that .ui should work
+	#Helpers
+	def determine_day_offset(date):
+		#Should fiugre out what button should be 1 and what button should be the last day of month etc.
+		#The unused buttons should be hidden
+		return
 
 if __name__ == '__main__':
 	app = QApplication(sys.argv)
