@@ -11,7 +11,13 @@ from PyQt5.uic import loadUi
 #Table of UI's
 ui_list = ['L0-version0.ui']
 months = ['January', 'Febuary', 'March', 'April','May','June','July','August','September','November','December']
-			
+
+
+class Event_Add_Window(QDialog):
+	def __init__(self):
+		super(Event_Add_Window, self).__init__()
+		loadUi('AddEventPopup0.ui', self)
+
 class MainViewController(QMainWindow):
 
 	def __init__(self):
@@ -25,14 +31,14 @@ class MainViewController(QMainWindow):
 		self.pushButton_previous.clicked.connect(self.previous_month_button)
 		#Button groups
 		self.buttonGroup_days.buttonClicked.connect(self.day_button)
-		
+
 		#for button in self.buttonGroup_days.buttons():
 			#button.clicked.connect(lambda: self.day_button(button.objectName()))
-			
+
 	#Slots
 	@pyqtSlot()
-	def add_event_button(self):
-		self.setWindowTitle('Okay!')
+	def add_event_button(self): #Opens the add_event pop up window
+		Event_Add_Window().exec_()
 
 	@pyqtSlot()
 	def next_month_button(self):
@@ -42,7 +48,7 @@ class MainViewController(QMainWindow):
 	def previous_month_button(self):
 		#Go back one month. Probably calls determine_day_offset
 		self.label_month.setText()
-	
+
 	@pyqtSlot()
 	def day_button(self):
 		#Currently just prints the name of the button
@@ -53,6 +59,7 @@ class MainViewController(QMainWindow):
 		#Should fiugre out what button should be 1 and what button should be the last day of month etc.
 		#The unused buttons should be hidden
 		return
+
 
 if __name__ == '__main__':
 	app = QApplication(sys.argv)
