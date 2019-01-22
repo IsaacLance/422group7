@@ -18,6 +18,11 @@ class Event_Add_Window(QDialog):
 		super(Event_Add_Window, self).__init__()
 		loadUi('AddEventPopup0.ui', self)
 
+class Day_Window(QDialog):
+	def __init__(self):
+		super(Day_Window, self).__init__()
+		loadUi('DayPopup.ui', self)
+
 class MainViewController(QMainWindow):
 
 	def __init__(self):
@@ -53,6 +58,7 @@ class MainViewController(QMainWindow):
 	def day_button(self):
 		#Currently just prints the name of the button
 		print(self.buttonGroup_days.checkedButton().objectName())
+		Day_Window().exec_()
 		#This should load the other .ui and pressing save on that .ui should work
 	#Helpers
 	def determine_day_offset(date):
