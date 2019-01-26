@@ -18,8 +18,7 @@ Calendar is an personal calendar application. With it, you have a tool that can 
 This application is implemented in Python ver 3.6. You need PyQt5, Pendulum, and bcrypt to launch this application.
 
 ```bash
-$ cd calendar-app
-$ //whatever line is needed to run the code
+$ python L0-version0.py
 ```
 
 ## Usage
