@@ -45,3 +45,6 @@ Please make sure to update tests as appropriate.
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+## Support
+For any support issues please email khawks996@gmail.com
