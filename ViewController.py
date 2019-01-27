@@ -10,7 +10,7 @@ from PyQt5.uic import loadUi
 
 #Table of UI's
 ui_list = ['L0-version0.ui']
-months = ['January', 'Febuary', 'March', 'April','May','June','July','August','September','November','December']
+months = ['January', 'Febuary', 'March', 'April','May','June','July','August','September','October','November','December']
 
 
 class Event_Add_Window(QDialog):
@@ -26,10 +26,12 @@ class Day_Window(QDialog):
 class MainViewController(QMainWindow):
 
 	def __init__(self):
+		self.month_idx = 0;
+
 		super(MainViewController, self).__init__()
 		loadUi(ui_list[0], self)
 		self.setWindowTitle('Test')
-		self.label_month.setText(months[0])
+		self.label_month.setText(months[self.month_idx])
 		#Buttons
 		self.pushButton_add.clicked.connect(self.add_event_button)
 		self.pushButton_next.clicked.connect(self.next_month_button)
@@ -47,12 +49,16 @@ class MainViewController(QMainWindow):
 
 	@pyqtSlot()
 	def next_month_button(self):
-		self.label_month.setText()
+		self.month_idx += 1
+		self.month_idx %= 12
+		self.label_month.setText(months[self.month_idx])
 
 	@pyqtSlot()
 	def previous_month_button(self):
 		#Go back one month. Probably calls determine_day_offset
-		self.label_month.setText()
+		self.month_idx -= 1
+		self.month_idx %= 12
+		self.label_month.setText(months[self.month_idx])
 
 	@pyqtSlot()
 	def day_button(self):
