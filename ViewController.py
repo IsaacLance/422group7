@@ -1,4 +1,5 @@
 #Isaac Lance 1-19-19
+#Kellie Hawks 1-27-19
 #Using https://github.com/mfitzp/15-minute-apps/blob/master/minesweeper/minesweeper.py
 #As a starting point to learn how good apps are designed
 
@@ -10,8 +11,10 @@ from PyQt5.uic import loadUi
 
 #Table of UI's
 ui_list = ['L0-version0.ui']
-months = ['January', 'Febuary', 'March', 'April','May','June','July','August','September','October','November','December']
-
+months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
+month_days = [31,28,31,30,31,30,31,31,30,31,30,31]
+leap_month_days = [31,29,31,30,31,30,31,31,30,31,30,31]
+leap_years = [2020, 2024]
 
 class Event_Add_Window(QDialog):
 	def __init__(self):
@@ -26,21 +29,39 @@ class Day_Window(QDialog):
 class MainViewController(QMainWindow):
 
 	def __init__(self):
-		self.month_idx = 0;
+		self.month = 0;
+		self.year = 2019;
 
 		super(MainViewController, self).__init__()
 		loadUi(ui_list[0], self)
 		self.setWindowTitle('Test')
-		self.label_month.setText(months[self.month_idx])
+		self.label_month.setText(months[self.month])
 		#Buttons
 		self.pushButton_add.clicked.connect(self.add_event_button)
 		self.pushButton_next.clicked.connect(self.next_month_button)
 		self.pushButton_previous.clicked.connect(self.previous_month_button)
 		#Button groups
-		self.buttonGroup_days.buttonClicked.connect(self.day_button)
+		self.set_up()
 
 		#for button in self.buttonGroup_days.buttons():
 			#button.clicked.connect(lambda: self.day_button(button.objectName()))
+
+	#hello
+	def set_up(self):
+		x = 1
+		for button in self.buttonGroup_days.buttons():
+			if (x > month_days[self.month]):
+				button.setText('')
+			else:
+				button.clicked.connect(self.day_button)
+				if (not self.year in leap_years):
+					day = month_days[self.month];
+					button.setText(str(x))
+				else:
+					day = leap_month_days[self.month];
+					button.setText(str(x))
+				x += 1
+
 
 	#Slots
 	@pyqtSlot()
@@ -49,19 +70,23 @@ class MainViewController(QMainWindow):
 
 	@pyqtSlot()
 	def next_month_button(self):
-		self.month_idx += 1
-		self.month_idx %= 12
-		self.label_month.setText(months[self.month_idx])
+		self.month += 1
+		self.month %= 12
+		self.label_month.setText(months[self.month])
+		self.set_up()
 
 	@pyqtSlot()
 	def previous_month_button(self):
 		#Go back one month. Probably calls determine_day_offset
-		self.month_idx -= 1
-		self.month_idx %= 12
-		self.label_month.setText(months[self.month_idx])
+		self.month -= 1
+		self.month %= 12
+		self.label_month.setText(months[self.month])
+		self.set_up()
 
 	@pyqtSlot()
 	def day_button(self):
+		sender = self.sender()
+
 		#Currently just prints the name of the button
 		print(self.buttonGroup_days.checkedButton().objectName())
 		Day_Window().exec_()
