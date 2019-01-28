@@ -16,10 +16,30 @@ month_days = [31,28,31,30,31,30,31,31,30,31,30,31]
 leap_month_days = [31,29,31,30,31,30,31,31,30,31,30,31]
 leap_years = [2020, 2024]
 
+
 class Event_Add_Window(QDialog):
 	def __init__(self):
 		super(Event_Add_Window, self).__init__()
 		loadUi('AddEventPopup0.ui', self)
+		self.pushButton_save.clicked.connect(self.save_event_button)
+
+
+	def save_event_button(self):
+		mytext = self.plainTextEdit.toPlainText()
+		StartTime = self.dateTimeEdit.dateTime()
+
+		StartTime_string = StartTime.toString(self.dateTimeEdit.displayFormat())
+		EndTime = self.dateTimeEdit_2.dateTime()
+		EndTime_string = EndTime.toString(self.dateTimeEdit_2.displayFormat())
+
+		with open('data.txt', 'w') as f:
+			f.write(mytext)
+			f.write(StartTime_string)
+			f.write('\n')
+			f.write(EndTime_string)
+
+
+
 
 class Day_Window(QDialog):
 	def __init__(self):
