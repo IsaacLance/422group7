@@ -19,25 +19,29 @@ leap_years = [2020, 2024]
 
 
 class Event_Add_Window(QDialog):
-    def __init__(self):
+    def __init__(self, m):
         super(Event_Add_Window, self).__init__()
         loadUi('AddEventPopup0.ui', self)
-        self.pushButton_save.clicked.connect(self.save_event_button)
+        self.pushButton_save.clicked.connect(self.save_event)
+        self.Model = m
+        self.Model.exit_data()
 
-
-    def save_event_button(self):
+    @pyqtSlot()
+    def save_event(self):
         mytext = self.plainTextEdit.toPlainText()
         StartTime = self.dateTimeEdit.dateTime()
 
         StartTime_string = StartTime.toString(self.dateTimeEdit.displayFormat())
         EndTime = self.dateTimeEdit_2.dateTime()
         EndTime_string = EndTime.toString(self.dateTimeEdit_2.displayFormat())
-
+        
         with open('data.txt', 'w') as f:
             f.write(mytext)
             f.write(StartTime_string)
             f.write('\n')
             f.write(EndTime_string)
+        self.accept()
+        return
 
 
 
@@ -89,7 +93,7 @@ class MainViewController(QMainWindow):
                     day = leap_month_days[self.month];
                     button.setText(str(x))
                 x += 1
-    
+        return    
     def set_up2(self):
         for button in self.buttonGroup_days.buttons():
             x = (int(button.objectName().split('_')[1]))
@@ -105,13 +109,16 @@ class MainViewController(QMainWindow):
                 else:
                     day = leap_month_days[self.month];
                     button.setText(str(x))
+        return
     
 
 
     #Slots
     @pyqtSlot()
     def add_event_button(self): #Opens the add_event pop up window
-        Event_Add_Window().exec_()
+        self.add_window_h()
+        #Event_Add_Window().exec_()
+        return
 
     @pyqtSlot()
     def next_month_button(self):
@@ -119,6 +126,7 @@ class MainViewController(QMainWindow):
         self.month %= 12
         self.label_month.setText(months[self.month])
         self.set_up2()
+        return
 
     @pyqtSlot()
     def previous_month_button(self):
@@ -136,6 +144,15 @@ class MainViewController(QMainWindow):
         print(self.buttonGroup_days.checkedButton().objectName())
         Day_Window().exec_()
         #This should load the other .ui and pressing save on that .ui should work
+    #Window helpers
+    def add_window_h(self):
+        addDialog = Event_Add_Window(self.Model)
+        if addDialog.exec():
+            print("True")
+        else: 
+            print("False")
+        return
+            
     #Helpers
     def determine_day_offset(date):
         #Should fiugre out what button should be 1 and what button should be the last day of month etc.

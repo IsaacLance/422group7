@@ -2,8 +2,8 @@
 
 class Model:
     def __init__(self):
-        open('data.txt') #file with all of the saved data
-    
+        #open('data.txt') #file with all of the saved data
+        return
     #INIT/EXIT HELPERS
     def startup_data(self):
         print("Model startup")
