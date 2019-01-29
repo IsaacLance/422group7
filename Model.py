@@ -3,6 +3,15 @@
 class Model:
     def __init__(self):
         open('data.txt') #file with all of the saved data
+    
+    #INIT/EXIT HELPERS
+    def startup_data(self):
+        print("Model startup")
+        return
+    
+    def exit_data(self):
+        print("Model exit")
+        return
 
     def add_event(month, day): #adds event at specified date (month, day)
         return
