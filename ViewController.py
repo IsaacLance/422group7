@@ -9,11 +9,12 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.uic import loadUi
+import calendar
 
 #Table of UI's
 ui_list = ['L0-version0.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
 months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
-month_days = [31,28,31,30,31,30,31,31,30,31,30,31]
+days = {'Monday':0, 'Tuesday':1, 'Wednesday':2, 'Thursday':3, 'Friday':4, 'Saturday':5, 'Sunday':6}
 leap_month_days = [31,29,31,30,31,30,31,31,30,31,30,31]
 leap_years = [2020, 2024]
 
@@ -34,12 +35,8 @@ class Event_Add_Window(QDialog):
         StartTime_string = StartTime.toString(self.dateTimeEdit.displayFormat())
         EndTime = self.dateTimeEdit_2.dateTime()
         EndTime_string = EndTime.toString(self.dateTimeEdit_2.displayFormat())
-        
-        with open('data.txt', 'w') as f:
-            f.write(mytext)
-            f.write(StartTime_string)
-            f.write('\n')
-            f.write(EndTime_string)
+
+        self.Model.add_event(mytext, StartTime_string, EndTime_string)
         self.accept()
         return
 
@@ -62,10 +59,10 @@ class MainViewController(QMainWindow):
         self.Model.startup_data()
         #Setup
         #This should be in the model!
-        self.month = 0;
+        self.month = 1;
         self.year = 2019;
 
-        
+
         self.setWindowTitle('Test')
         self.label_month.setText(months[self.month])
         #Buttons
@@ -79,38 +76,19 @@ class MainViewController(QMainWindow):
             #button.clicked.connect(lambda: self.day_button(button.objectName()))
 
     #hello
-    def set_up(self):
-        x = 1
-        for button in self.buttonGroup_days.buttons():
-            if (x > month_days[self.month]):
-                button.setText('')
-            else:
-                button.clicked.connect(self.day_button)
-                if (not self.year in leap_years):
-                    day = month_days[self.month];
-                    button.setText(str(x))
-                else:
-                    day = leap_month_days[self.month];
-                    button.setText(str(x))
-                x += 1
-        return    
     def set_up2(self):
         for button in self.buttonGroup_days.buttons():
             x = (int(button.objectName().split('_')[1]))
-            if (x > month_days[self.month]):
+            dNum, offset = calendar.monthrange(self.year, self.month)
+            if (x < offset or x > (dNum + offset)):
                 button.setText('')
                 #button.hide()
-            else: 
+            else:
                 #button.show()
                 button.clicked.connect(self.day_button)
-                if (not self.year in leap_years):
-                    day = month_days[self.month];
-                    button.setText(str(x))
-                else:
-                    day = leap_month_days[self.month];
-                    button.setText(str(x))
+                button.setText(str(x - offset))
         return
-    
+
 
 
     #Slots
@@ -123,8 +101,10 @@ class MainViewController(QMainWindow):
     @pyqtSlot()
     def next_month_button(self):
         self.month += 1
-        self.month %= 12
-        self.label_month.setText(months[self.month])
+        if(self.month == 13):
+            self.month = 1
+        else:
+            self.label_month.setText(months[self.month - 1])
         self.set_up2()
         return
 
@@ -132,9 +112,12 @@ class MainViewController(QMainWindow):
     def previous_month_button(self):
         #Go back one month. Probably calls determine_day_offset
         self.month -= 1
-        self.month %= 12
-        self.label_month.setText(months[self.month])
+        if(self.month == 0):
+            self.month = 12
+        else:
+            self.label_month.setText(months[self.month - 1])
         self.set_up2()
+        return
 
     @pyqtSlot()
     def day_button(self):
@@ -149,10 +132,10 @@ class MainViewController(QMainWindow):
         addDialog = Event_Add_Window(self.Model)
         if addDialog.exec():
             print("True")
-        else: 
+        else:
             print("False")
         return
-            
+
     #Helpers
     def determine_day_offset(date):
         #Should fiugre out what button should be 1 and what button should be the last day of month etc.

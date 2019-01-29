@@ -8,12 +8,16 @@ class Model:
     def startup_data(self):
         print("Model startup")
         return
-    
+
     def exit_data(self):
         print("Model exit")
         return
 
-    def add_event(month, day): #adds event at specified date (month, day)
+    def add_event(self, title, start, end): #adds event at specified date (month, day)
+        print(title)
+        print(start)
+        print(end)
+
         return
 
     def delete_event(month, day): #deletes an event at specified date (month, day)
