@@ -12,11 +12,11 @@ from PyQt5.uic import loadUi
 import calendar
 
 #Table of UI's
-ui_list = ['L0-version0.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
-months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
-days = {'Monday':0, 'Tuesday':1, 'Wednesday':2, 'Thursday':3, 'Friday':4, 'Saturday':5, 'Sunday':6}
-leap_month_days = [31,29,31,30,31,30,31,31,30,31,30,31]
-leap_years = [2020, 2024]
+ui_list = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
+#months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
+#days = {'Monday':0, 'Tuesday':1, 'Wednesday':2, 'Thursday':3, 'Friday':4, 'Saturday':5, 'Sunday':6}
+#leap_month_days = [31,29,31,30,31,30,31,31,30,31,30,31]
+#leap_years = [2020, 2024]
 
 
 class Event_Add_Window(QDialog):
@@ -101,7 +101,6 @@ class MainViewController(QMainWindow):
     @pyqtSlot()
     def add_event_button(self): #Opens the add_event pop up window
         self.add_window_h()
-        #Event_Add_Window().exec_()
         return
 
     @pyqtSlot()
@@ -116,7 +115,6 @@ class MainViewController(QMainWindow):
 
     @pyqtSlot()
     def previous_month_button(self):
-        #Go back one month. Probably calls determine_day_offset
         if self.month == 0:
             self.year -= 1
             self.label_year.setText(str(self.year))   
@@ -157,11 +155,6 @@ class MainViewController(QMainWindow):
         return
 
     #Helpers
-    def determine_day_offset(date):
-        #Should fiugre out what button should be 1 and what button should be the last day of month etc.
-        #The unused buttons should be hidden
-        return
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
