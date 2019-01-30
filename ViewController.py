@@ -25,7 +25,6 @@ class Event_Add_Window(QDialog):
         loadUi('AddEventPopup0.ui', self)
         self.pushButton_save.clicked.connect(self.save_event)
         self.Model = m
-        self.Model.exit_data()
 
     @pyqtSlot()
     def save_event(self):
@@ -33,10 +32,15 @@ class Event_Add_Window(QDialog):
         StartTime = self.dateTimeEdit.dateTime()
 
         StartTime_string = StartTime.toString(self.dateTimeEdit.displayFormat())
+
+        month = StartTime_string.split(' ')[0].split('/')[0]
+        year = StartTime_string.split(' ')[0].split('/')[2]
+        day = StartTime_string.split(' ')[0].split('/')[1]
+        
         EndTime = self.dateTimeEdit_2.dateTime()
         EndTime_string = EndTime.toString(self.dateTimeEdit_2.displayFormat())
 
-        self.Model.add_event(mytext, StartTime_string, EndTime_string)
+        self.Model.add_event(title, year, month, StartTime_string, EndTime_string)
         self.accept()
         return
 
