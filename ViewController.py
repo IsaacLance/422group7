@@ -106,6 +106,9 @@ class MainViewController(QMainWindow):
 
     @pyqtSlot()
     def next_month_button(self):
+        if self.month == 11:
+            self.year += 1
+            self.label_year.setText(str(self.year))
         self.month += 1
         self.month %= 12
         self.label_month.setText(months[self.month])
@@ -114,6 +117,9 @@ class MainViewController(QMainWindow):
     @pyqtSlot()
     def previous_month_button(self):
         #Go back one month. Probably calls determine_day_offset
+        if self.month == 0:
+            self.year -= 1
+            self.label_year.setText(str(self.year))   
         self.month -= 1
         self.month %= 12
         self.label_month.setText(months[self.month])
