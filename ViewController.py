@@ -13,7 +13,7 @@ import calendar
 
 #Table of UI's
 ui_list = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
-#months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
+months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
 #days = {'Monday':0, 'Tuesday':1, 'Wednesday':2, 'Thursday':3, 'Friday':4, 'Saturday':5, 'Sunday':6}
 #leap_month_days = [31,29,31,30,31,30,31,31,30,31,30,31]
 #leap_years = [2020, 2024]
