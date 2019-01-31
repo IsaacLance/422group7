@@ -41,12 +41,10 @@ class CalendarModel:
         return
         
     def add_event(self, title, start, end): #adds event at specified date (month, day)
-        print("Added event")
-        print(title)
-        print(start)
-        print(end)
+        #EVents should only be added if they are not duplicates
+        print("Adding event:")
         self.s['events'].append(Event(title, start, end))
-
+        print(self.s['events'][-1].title)
         return
     #Getters
     def get_year(self):
@@ -57,21 +55,31 @@ class CalendarModel:
     def get_month(self):
         #get the current month
         #print(self.s[event]['month'])
-        return self.month   
-    #Helpers
-    '''
-    These don't work yet
-    def search_event(self, event)
-        #The format of the event must be "a-b-c"
-        #here a means month,b means day, c means year
-        if event in self.s['events']:
-            return True
-        else:
-            return False    
-
-    def delete_event(month, day): #deletes an event at specified date (month, day)
-        return
+        return self.month 
     
-    def get_event(month, day): #retrieves an event at specified date (month, day) and presents that to the user in the ViewController
+    def get_day_events(month, day): #retrieves events and presents that to the user in the ViewController
         return
-    '''
+        
+    #Helpers
+    def search_event(self, title, start, end):
+        #Search for an event and return it's index or None
+        index = -1
+        for index, event in enumerate(self.s['events']):
+            if event.title == title and event.start == start and event.end == end:
+                return 
+                    
+                
+    def delete_event(self, title, start, end): #deletes an event at specified date (month, day)
+        
+        return
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    

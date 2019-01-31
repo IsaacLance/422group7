@@ -23,22 +23,30 @@ class Event_Add_Window(QDialog):
         self.pushButton_save.clicked.connect(self.save_event)
         self.m = model
 
+    #Helpers
+    def convert_to_datetime_obj(self, time):
+        timelist = time.split(" ")
+        year = "20" + timelist[0][-2:]
+        timelist[0] = timelist[0].rstrip(timelist[0][-2:])
+
+        time_string2 = timelist[0] + " " + timelist[1] + " " + timelist[2]
+        datetime_object = datetime.datetime.strptime(time_string2, '%b %d %Y %I:%M%p')
+        
+        return datetime_object
+    #Slots
     @pyqtSlot()
     def save_event(self):
         title = self.plainTextEdit.toPlainText()
-        
+        #Convert start time entered to dt object
         StartTime = self.dateTimeEdit.dateTime()
         StartTime_string = StartTime.toString(self.dateTimeEdit.displayFormat())
-
-        month = StartTime_string.split(' ')[0].split('/')[0]
-        year = StartTime_string.split(' ')[0].split('/')[2]
-        day = StartTime_string.split(' ')[0].split('/')[1]
-        
+        datetime_start = self.convert_to_datetime_obj(StartTime_string)
+        #convert end time entered to dt object
         EndTime = self.dateTimeEdit_2.dateTime()
         EndTime_string = EndTime.toString(self.dateTimeEdit_2.displayFormat())
-
-        self.m.add_event(title, StartTime_string, EndTime_string)
-        #self.m.add_event(title, year, month, StartTime_string, EndTime_string)
+        datetime_end = self.convert_to_datetime_obj(EndTime_string)
+        
+        self.m.add_event(title, datetime_start, datetime_end)
         #Self.accept makes the return code of exec "True" otherwise it's false (Like if you exit the window)
         self.accept()
         return
