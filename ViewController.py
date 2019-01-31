@@ -14,8 +14,6 @@ import datetime
 
 #Table of UI's
 ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
-months = ['January', 'February', 'March', 'April','May','June','July','August','September','October','November','December']
-
 
 
 class Event_Add_Window(QDialog):
@@ -80,7 +78,7 @@ class MainViewController(QMainWindow):
     def refresh(self):
         #Month, Year
         self.label_year.setText(str(self.m.year))
-        self.label_month.setText(str(self.m.month))
+        self.label_month.setText(calendar.month_name[(self.m.month)])
         for button in self.buttonGroup_days.buttons():
             x = (int(button.objectName().split('_')[1]))
             first_day, month_Days= calendar.monthrange(self.m.year, self.m.month)
