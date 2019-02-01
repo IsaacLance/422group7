@@ -1,6 +1,7 @@
 #Chandler Potter 1/21/19 CIS 422
 import shelve
 from Event import CalendarEvent
+
 class CalendarModel:
     def __init__(self, month, year):
         self.month = month
@@ -68,16 +69,24 @@ class CalendarModel:
         #print(s[event]['month'])
         return self.month 
     
-    def get_day_events(month, day): #retrieves events and presents that to the user in the ViewController
-        return
+    def get_day_events(self, day_num): #retrieves events and presents that to the user in the ViewController
+        s = shelve.open("data", writeback = True)
+        event_list = []
+        for event in s['events']:
+            if event.start.year == self.year and event.start.month == self.month and event.start.day == day_num:
+                event_list.append(event)
+        return event_list
         
     #Helpers
     def search_event(self, title, start, end):
         #Search for an event and return it's index or None
+        s = shelve.open("data", writeback = True)
         index = -1
         for index, event in enumerate(s['events']):
             if event.title == title and event.start == start and event.end == end:
+                s.close()
                 return index
+        s.close()
         return None
                     
                 
