@@ -24,13 +24,10 @@ class Event_Add_Window(QDialog):
         self.m = model
 
     #Helpers
-    def convert_to_datetime_obj(self, time):
-        timelist = time.split(" ")
-        year = "20" + timelist[0][-2:]
-        timelist[0] = timelist[0].rstrip(timelist[0][-2:])
+    def convert_to_datetime_obj(self, time, day):
 
-        time_string2 = timelist[0] + " " + timelist[1] + " " + timelist[2]
-        datetime_object = datetime.datetime.strptime(time_string2, '%b %d %Y %I:%M%p')
+        time_string = time + " " + day
+        datetime_object = datetime.datetime.strptime(time_string, '%b %d %Y %I:%M%p')
         
         return datetime_object
     #Slots
