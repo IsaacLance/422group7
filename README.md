@@ -35,8 +35,6 @@ You will be presented the edit event window where you can update or delte your e
 
 To close the widget, simply close the window
 
-```
-
 ## Running the tests
 Testing team:
 Please explain how to run the automated tests that you will eventually write...
