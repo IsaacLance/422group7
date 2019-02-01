@@ -2,7 +2,8 @@
 
 Calendar is an personal calendar application. With it, you have a tool that can help organize your future plans, schedule meetings more efficiently and stay on top of tasks and reminders. 
 
-// include image here
+![alt text](https://github.com/IsaacLance/422group7/blob/master/Calendar.png)
+
 
 #### Calendar offers many features such as:
 - Lightweight and easy to setup
@@ -10,8 +11,6 @@ Calendar is an personal calendar application. With it, you have a tool that can 
 - Personalized background color
 - Personalized textcolor 
 - Data Encryption 
-
-// more images/gifs
 
 ## Installation
 
