@@ -60,6 +60,7 @@ class Day_Window(QDialog):
     def __init__(self):
         super(Day_Window, self).__init__()
         loadUi(ui[2], self)
+        
 
 class MainViewController(QMainWindow):
 
