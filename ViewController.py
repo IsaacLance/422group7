@@ -68,6 +68,7 @@ class MainViewController(QMainWindow):
         super(MainViewController, self).__init__()
         loadUi(ui[0], self)
         #TEST
+        self.buttonGroup_days.setExclusive(False)
         #Model
         now = datetime.date.today()
         self.m = Model.CalendarModel(now.month, now.year)
@@ -133,10 +134,9 @@ class MainViewController(QMainWindow):
         print(day)
         #print(self.buttonGroup_days.checkedButton().objectName())
         day_dialog = Day_Window()
-        if day_dialog.exec():
-            print(True)
-        #self.buttonGroup_days.checkedButton().toggle()
-        #This should load the other .ui and pressing save on that .ui should work
+        day_dialog.exec()
+        
+        abstract_button.toggle()
         return
 
     @pyqtSlot()
