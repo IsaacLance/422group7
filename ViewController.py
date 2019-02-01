@@ -29,7 +29,7 @@ class Event_Add_Window(QDialog):
         print(day)
         time_string = day + " " + time
         datetime_object = datetime.datetime.strptime(time_string, '%a %b %d %Y %H:%M:%S')
-        
+
         return datetime_object
     #Slots
     @pyqtSlot()
@@ -40,14 +40,14 @@ class Event_Add_Window(QDialog):
         #startTime_string = startTime.toString(self.timeEdit.displayFormat())
         startDate = self.dateEdit.date().toString()
         #startDate_string = startDate.toString(self.dateEdit.displayFormat())
-        
+
         start = self.convert_to_datetime_obj(startDate, startTime)
         #convert end time entered to dt object
         endTime = self.timeEdit_2.time().toString()
         #endTime_string = endTime.toString(self.timeEdit_2.displayFormat())
         endDate = self.dateEdit_2.date().toString()
         #endDate_string = endDate.toString(self.dateEdit_2.displayFormat())
-        
+
         end = self.convert_to_datetime_obj(endDate, endTime)
         print()
         self.m.add_event(title, start, end)
@@ -143,14 +143,14 @@ class MainViewController(QMainWindow):
 
     @pyqtSlot()
     def previous_year(self):
-        self.year -= 1
-        self.label_year.setText(str(self.year))
+        self.m.year -= 1
+        self.label_year.setText(str(self.m.year))
         self.refresh()
 
     @pyqtSlot()
     def next_year(self):
-        self.year += 1
-        self.label_year.setText(str(self.year))
+        self.m.year += 1
+        self.label_year.setText(str(self.m.year))
         self.refresh()
 
     #Window helpers
