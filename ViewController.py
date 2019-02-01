@@ -22,7 +22,13 @@ class Event_Add_Window(QDialog):
         super(Event_Add_Window, self).__init__()
         loadUi(ui[1], self)
         self.pushButton_save.clicked.connect(self.save_event)
+        self.dateEdit.setDate(QDate.currentDate())
+        self.dateEdit_2.setDate(QDate.currentDate())
+        self.timeEdit.setTime(QTime.currentTime())
+        self.timeEdit_2.setTime(QTime.currentTime())
+        
         self.m = model
+        
 
     #Helpers
     def convert_to_datetime_obj(self, day, time):
