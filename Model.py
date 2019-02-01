@@ -15,7 +15,7 @@ class CalendarModel:
         print("Year: " +str(self.year))
         print("Month: " +str(self.month))
         s = shelve.open("data", writeback = True)
-        s.pop('events', None)
+        
         if not('events' in s):
             print("No events key found in shelve. Created new events list.")
             s['events'] = ['test', 'test2']
