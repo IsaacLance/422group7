@@ -7,9 +7,6 @@ Calendar is an personal calendar application. With it, you have a tool that can 
 
 #### Calendar offers many features such as:
 - Lightweight and easy to setup
-- Password protected
-- Personalized background color
-- Personalized textcolor 
 - Data Encryption 
 
 ## Installation
@@ -21,9 +18,21 @@ $ python L0-version0.py
 ```
 
 ## Usage
+![alt text](https://github.com/IsaacLance/422group7/blob/master/Calendar.png)
+Click a date in the calendar widget to list the events in that day
 
-```python
-//this will be how to use it eventually after we finish the code. 
+![alt text]https://github.com/IsaacLance/422group7/blob/master/Add_date_popup.png
+Click add event button and fill in event name along with start and end time.
+Click save to save your event
+
+//Picture
+
+To change an event, click on the day of that event and select the event.
+You will be presented the edit event window where you can update or delte your event. 
+
+
+To close the widget, simply close the window
+
 ```
 
 ## Running the tests
