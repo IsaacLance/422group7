@@ -21,7 +21,7 @@ $ python L0-version0.py
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Calendar.png)
 Click a date in the calendar widget to list the events in that day
 
-![alt text]https://github.com/IsaacLance/422group7/blob/master/Add_date_popup.png
+![alt text](https://github.com/IsaacLance/422group7/blob/master/Add_date_popup.png)
 Click add event button and fill in event name along with start and end time.
 Click save to save your event
 
