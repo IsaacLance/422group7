@@ -67,17 +67,27 @@ class CalendarModel:
         #print(s[event]['month'])
         return self.month
 
-    def get_day_events(self, day_num): #retrieves events and presents that to the user in the ViewController
-        print('hi')
+    def get_day_events(self, day_num): #retrieves events and presents that to the user in the ViewController. returns none if no events matched.
         s = shelve.open("data", writeback = True)
         event_list = []
         for event in s['events']:
-            if event.start.year == self.year and event.start.month == self.month and event.start.day == day_num:
+            '''
+            print('Title: ' + event.title)
+            print('Event  Input')
+            print(str(event.start.day) +'      '+ str(day_num))
+            print(str(event.start.month) +'      '+ str(self.month))
+            print(str(event.start.year) +'      '+ str(self.year))
+            '''
+            if event.start.year == self.year and event.start.month == self.month and event.start.day == int(day_num):
                 event_list.append(event)
-
-        date_time = s['events'][event_list].strftime('%a %b %d %Y %H:%M:%S')
-        print(date_time)
-        print('Hello')
+        
+        if not event_list:
+            return None
+            
+        #date_time = event_list[0].start.strftime('%a %b %d %Y %H:%M:%S')
+        #print(date_time)
+        
+        return event_list
         
     #Helpers
     def search_event(self, title, start, end):

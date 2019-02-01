@@ -71,6 +71,26 @@ class Day_Window(QDialog):
         self.day = day
         self.events = events
         self.label_date.setText(calendar.month_name[(self.m.month)] + ' ' + self.day + ' ' + str(self.m.year))
+        #print(self.events)
+        if self.events != None:
+            for num in range(1, len(self.events)+1):
+                label = getattr(self, 'label_{}'.format(num))
+                label.show()
+                ev = self.events[num-1]
+                
+                mystring = ev.title + ev.start.strftime('%a %b %d %Y %H:%M:%S')+ '   to   ' + ev.end.strftime('%a %b %d %Y %H:%M:%S')
+                print(mystring)
+                label.setText(mystring)
+            for num in range(len(self.events)+1, 31):
+                label = getattr(self, 'label_{}'.format(num))
+                label.hide()
+        
+        else:
+            for num in range(1, 31):
+                label = getattr(self, 'label_{}'.format(num))
+                label.hide()
+                
+            
 
 
 
@@ -87,7 +107,7 @@ class MainViewController(QMainWindow):
         now = datetime.date.today()
         self.m = Model.CalendarModel(now.month, now.year)
 
-        self.setWindowTitle('Test')
+        self.setWindowTitle('Calendar')
         #Buttons
         self.pushButton_plus.clicked.connect(self.next_year)
         self.pushButton_minus.clicked.connect(self.previous_year)
@@ -144,11 +164,9 @@ class MainViewController(QMainWindow):
     def day_button(self):
         abstract_button = self.sender()
         day = abstract_button.text()
-        #Currently just prints the name of the button
-        print(day)
-        #print(self.buttonGroup_days.checkedButton().objectName())
+
         events = self.m.get_day_events(day)
-        day_dialog = Day_Window(self.m, day)
+        day_dialog = Day_Window(self.m, day, events)
         day_dialog.exec()
 
         abstract_button.toggle()
