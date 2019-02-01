@@ -26,9 +26,9 @@ class Event_Add_Window(QDialog):
         self.dateEdit_2.setDate(QDate.currentDate())
         self.timeEdit.setTime(QTime.currentTime())
         self.timeEdit_2.setTime(QTime.currentTime())
-        
+
         self.m = model
-        
+
 
     #Helpers
     def convert_to_datetime_obj(self, day, time):
@@ -64,21 +64,14 @@ class Event_Add_Window(QDialog):
 
 
 class Day_Window(QDialog):
-    def __init__(self, model, day):
+    def __init__(self, model, day, events):
         super(Day_Window, self).__init__()
         loadUi(ui[2], self)
         self.m = model
         self.day = day
-        self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.label = QLabel(self.scrollAreaWidgetContents)
-        font = QFont()
-        font.setPointSize(12)
-        self.label.setFont(font)
-        self.label.setObjectName("label")
-        self.horizontalLayout.addWidget(self.label)
-        self.label.setText("start")
+        self.events = events
         self.label_date.setText(calendar.month_name[(self.m.month)] + ' ' + self.day + ' ' + str(self.m.year))
+
 
 
 
@@ -154,6 +147,7 @@ class MainViewController(QMainWindow):
         #Currently just prints the name of the button
         print(day)
         #print(self.buttonGroup_days.checkedButton().objectName())
+        events = self.m.get_day_events(day)
         day_dialog = Day_Window(self.m, day)
         day_dialog.exec()
 
