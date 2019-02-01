@@ -18,7 +18,7 @@ class CalendarModel:
         
         if not('events' in s):
             print("No events key found in shelve. Created new events list.")
-            print(s['events'])
+            s['events'] = []
         else:
             print(s['events'])
         s.close()
