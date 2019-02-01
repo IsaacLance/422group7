@@ -12,6 +12,7 @@ from PyQt5.uic import loadUi
 import calendar
 import datetime
 
+
 #Table of UI's
 ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
 
@@ -57,9 +58,23 @@ class Event_Add_Window(QDialog):
 
 
 class Day_Window(QDialog):
-    def __init__(self):
+    def __init__(self, model, day):
         super(Day_Window, self).__init__()
         loadUi(ui[2], self)
+        self.m = model
+        self.day = day
+        self.horizontalLayout = QHBoxLayout()
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.label = QLabel(self.scrollAreaWidgetContents)
+        font = QFont()
+        font.setPointSize(12)
+        self.label.setFont(font)
+        self.label.setObjectName("label")
+        self.horizontalLayout.addWidget(self.label)
+        self.label.setText("start")
+        self.label_date.setText(calendar.month_name[(self.m.month)] + ' ' + self.day + ' ' + str(self.m.year))
+
+
 
 class MainViewController(QMainWindow):
 
@@ -133,9 +148,9 @@ class MainViewController(QMainWindow):
         #Currently just prints the name of the button
         print(day)
         #print(self.buttonGroup_days.checkedButton().objectName())
-        day_dialog = Day_Window()
+        day_dialog = Day_Window(self.m, day)
         day_dialog.exec()
-        
+
         abstract_button.toggle()
         return
 
