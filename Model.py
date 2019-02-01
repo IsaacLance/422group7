@@ -6,30 +6,28 @@ class CalendarModel:
         self.month = month
         self.year = year
         self.startup_data()
-        self.s = None
         return
-        
-    def __del__(self):
-        self.s.close()
 
     #INIT/EXIT HELPERS
     def startup_data(self):
         print("Model startup")
         print("Year: " +str(self.year))
         print("Month: " +str(self.month))
-        self.s = shelve.open("data", writeback = True)
-        self.s.pop('events', None)
-        if not('events' in self.s):
+        s = shelve.open("data", writeback = True)
+        s.pop('events', None)
+        if not('events' in s):
             print("No events key found in shelve. Created new events list.")
-            self.s['events'] = []
-            self.s.sync()
+            s['events'] = ['test', 'test2']
+            s.sync()
+            print(s['events'])
         else:
-            print(self.s['events'])
+            print(s['events'])
+        s.close()
         return
 
     def exit_data(self):
         print("Model exit")
-        self.s.close()
+        s.close()
         return
     
     #Button responses/ setters
@@ -50,22 +48,24 @@ class CalendarModel:
         
     def add_event(self, title, start, end): #adds event at specified date (month, day)
         #EVents should only be added if they are not duplicates
+        s = shelve.open("data", writeback = True)
         print("Adding event:")
-        print(self.s['events'])
+        print(s['events'])
         e = CalendarEvent(title, start, end)
         print(e.title)
-        self.s['events'].append(e)
-        print(self.s['events'][-1].title)
+        s['events'].append(e)
+        print(s['events'])
+        s.close()
         return
     #Getters
     def get_year(self):
         #get the current year
-        #print(self.s[event]['year'])
+        #print(s[event]['year'])
         return self.year
 
     def get_month(self):
         #get the current month
-        #print(self.s[event]['month'])
+        #print(s[event]['month'])
         return self.month 
     
     def get_day_events(month, day): #retrieves events and presents that to the user in the ViewController
@@ -75,9 +75,10 @@ class CalendarModel:
     def search_event(self, title, start, end):
         #Search for an event and return it's index or None
         index = -1
-        for index, event in enumerate(self.s['events']):
+        for index, event in enumerate(s['events']):
             if event.title == title and event.start == start and event.end == end:
-                return 
+                return index
+        return None
                     
                 
     def delete_event(self, title, start, end): #deletes an event at specified date (month, day)
