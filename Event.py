@@ -1,7 +1,7 @@
 '''
 Event class to be used by the model for data storage
 '''
-class Event():
+class CalendarEvent():
     def __init__(self, title, start, end, recur = False):
         #String
         self.title = title

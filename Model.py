@@ -1,7 +1,6 @@
 #Chandler Potter 1/21/19 CIS 422
 import shelve
-import Event
-
+from Event import CalendarEvent
 class CalendarModel:
     def __init__(self, month, year):
         self.month = month
@@ -9,19 +8,28 @@ class CalendarModel:
         self.startup_data()
         self.s = None
         return
+        
+    def __del__(self):
+        self.s.close()
+
     #INIT/EXIT HELPERS
     def startup_data(self):
         print("Model startup")
         print("Year: " +str(self.year))
         print("Month: " +str(self.month))
         self.s = shelve.open("data", writeback = True)
+        self.s.pop('events', None)
         if not('events' in self.s):
             print("No events key found in shelve. Created new events list.")
             self.s['events'] = []
+            self.s.sync()
+        else:
+            print(self.s['events'])
         return
 
     def exit_data(self):
         print("Model exit")
+        self.s.close()
         return
     
     #Button responses/ setters
@@ -43,7 +51,10 @@ class CalendarModel:
     def add_event(self, title, start, end): #adds event at specified date (month, day)
         #EVents should only be added if they are not duplicates
         print("Adding event:")
-        self.s['events'].append(Event(title, start, end))
+        print(self.s['events'])
+        e = CalendarEvent(title, start, end)
+        print(e.title)
+        self.s['events'].append(e)
         print(self.s['events'][-1].title)
         return
     #Getters

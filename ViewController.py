@@ -24,10 +24,11 @@ class Event_Add_Window(QDialog):
         self.m = model
 
     #Helpers
-    def convert_to_datetime_obj(self, time, day):
-
-        time_string = time + " " + day
-        datetime_object = datetime.datetime.strptime(time_string, '%b %d %Y %I:%M%p')
+    def convert_to_datetime_obj(self, day, time):
+        print(time)
+        print(day)
+        time_string = day + " " + time
+        datetime_object = datetime.datetime.strptime(time_string, '%a %b %d %Y %H:%M:%S')
         
         return datetime_object
     #Slots
@@ -35,15 +36,21 @@ class Event_Add_Window(QDialog):
     def save_event(self):
         title = self.plainTextEdit.toPlainText()
         #Convert start time entered to dt object
-        StartTime = self.dateTimeEdit.dateTime()
-        StartTime_string = StartTime.toString(self.dateTimeEdit.displayFormat())
-        datetime_start = self.convert_to_datetime_obj(StartTime_string)
-        #convert end time entered to dt object
-        EndTime = self.dateTimeEdit_2.dateTime()
-        EndTime_string = EndTime.toString(self.dateTimeEdit_2.displayFormat())
-        datetime_end = self.convert_to_datetime_obj(EndTime_string)
+        startTime = self.timeEdit.time().toString()
+        #startTime_string = startTime.toString(self.timeEdit.displayFormat())
+        startDate = self.dateEdit.date().toString()
+        #startDate_string = startDate.toString(self.dateEdit.displayFormat())
         
-        self.m.add_event(title, datetime_start, datetime_end)
+        start = self.convert_to_datetime_obj(startDate, startTime)
+        #convert end time entered to dt object
+        endTime = self.timeEdit_2.time().toString()
+        #endTime_string = endTime.toString(self.timeEdit_2.displayFormat())
+        endDate = self.dateEdit_2.date().toString()
+        #endDate_string = endDate.toString(self.dateEdit_2.displayFormat())
+        
+        end = self.convert_to_datetime_obj(endDate, endTime)
+        print()
+        self.m.add_event(title, start, end)
         #Self.accept makes the return code of exec "True" otherwise it's false (Like if you exit the window)
         self.accept()
         return
