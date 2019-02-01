@@ -80,10 +80,10 @@ class MainViewController(QMainWindow):
         self.pushButton_next.clicked.connect(self.next_month_button)
         self.pushButton_previous.clicked.connect(self.previous_month_button)
         #Button groups
+        #self.buttonGroup_days.buttonClicked[QAbstractButton].connect(self.day_button)
         self.refresh()
-
-        #for button in self.buttonGroup_days.buttons():
-            #button.clicked.connect(lambda: self.day_button(button.objectName()))
+        for button in self.buttonGroup_days.buttons():
+            button.clicked.connect(self.day_button)
 
     #hello
     def refresh(self):
@@ -101,13 +101,9 @@ class MainViewController(QMainWindow):
             endDate = month_Days + first_day
             if (x < startDate or x > endDate):
                 button.setText('')
-                #button.hide()
-                #
-                #button.setEnabled(False)
-                #
+                button.setEnabled(False)
             else:
-                #button.show()
-                button.clicked.connect(self.day_button)
+                button.setEnabled(True)
                 button.setText(str(x - first_day))
         return
 
@@ -131,8 +127,10 @@ class MainViewController(QMainWindow):
 
     @pyqtSlot()
     def day_button(self):
-
+        abstract_button = self.sender()
+        day = abstract_button.text()
         #Currently just prints the name of the button
+        print(day)
         #print(self.buttonGroup_days.checkedButton().objectName())
         day_dialog = Day_Window()
         if day_dialog.exec():
@@ -144,13 +142,11 @@ class MainViewController(QMainWindow):
     @pyqtSlot()
     def previous_year(self):
         self.m.year -= 1
-        self.label_year.setText(str(self.m.year))
         self.refresh()
 
     @pyqtSlot()
     def next_year(self):
         self.m.year += 1
-        self.label_year.setText(str(self.m.year))
         self.refresh()
 
     #Window helpers
