@@ -54,9 +54,9 @@ class Event_Add_Window(QDialog):
     #Helpers
     def convert_to_datetime_obj(self, day, time) -> datetime:
         '''
-        Args: day (string) , time (string)
-        Returns: A datetime object
-        Purpose: Storing values at datetime objects means we can easily use datetime methods for various
+        args: day (string) , time (string)
+        returns: A datetime object
+        description: Storing values at datetime objects means we can easily use datetime methods for various
         functions, ex: easily check if a date falls before or after another date
         '''
         #Concatenate strings
@@ -69,23 +69,26 @@ class Event_Add_Window(QDialog):
     #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
     @pyqtSlot()
     def save_event(self):
+        '''
+        args: N/A
+        returns: N/A
+        side effects: saves event info from the dialog to the model
+        description: This function is called when a user clicks to save the event they are entering in the dialog
+        it has no explicit arguments but the input fields are used. The model handles saving the event.
+        '''
+        #Get title from the title text edit
         title = self.plainTextEdit.toPlainText()
-        #Convert start time entered to dt object
-        startTime = self.timeEdit.time().toString()
-
+        #Get start date/time and convert to datetime object
         startDate = self.dateEdit.date().toString()
-
-
+        startTime = self.timeEdit.time().toString()
         start = self.convert_to_datetime_obj(startDate, startTime)
-        #convert end time entered to dt object
-        endTime = self.timeEdit_2.time().toString()
-
+        #Get end date/time and convert to datetime object
         endDate = self.dateEdit_2.date().toString()
-
+        endTime = self.timeEdit_2.time().toString()
         end = self.convert_to_datetime_obj(endDate, endTime)
-        print()
+        #Call models add_event function to store the event
         self.m.add_event(title, start, end)
-        #Self.accept makes the return code of exec "True" otherwise it's false (Like if you exit the window)
+        #Self.accept makes the return code of exec "True" otherwise it's false (if the user were to exit the window)
         self.accept()
         return
 
