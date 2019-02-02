@@ -4,7 +4,7 @@
 #As a starting point to learn how good apps are designed
 
 import sys
-import Model
+from Model import CalendarModel
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
@@ -12,48 +12,75 @@ from PyQt5.uic import loadUi
 import calendar
 import datetime
 
-
-#Table of UI's
+'''
+Table of UI's used by our app. ".ui" files are created using the QT Designer software
+and can be converted to a .py file which can be human-read to determine the available
+ui elements. Elements referenced in this code are avaialable due to the call: 
+"loadUi(ui[x], self)"
+This call is responsible for bringing those elements into the scope.
 ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
+'''
 
-
+'''
+This class inherits QDialog. QDialog widgets are usually created by an existing main view
+to handle user input or send a specific message, and then are closed. Their lifetime is short.
+This window let's the user add a new event to the model.
+'''
 class Event_Add_Window(QDialog):
     def __init__(self, model):
+        #Call super of QDialog
         super(Event_Add_Window, self).__init__()
+        #Load the correct ui (and therefore all it's elements)
         loadUi(ui[1], self)
+        '''
+        PyQT uses signals and slots to handle message passing between ui elements/widgets and 
+        functions. In the following line, a pushButton has it's "clicked" signal connected to the
+        slot "save_event"
+        The single comment line above shows the relationship between this specific call and the types.
+        '''
+        #   .nameOfButton___.signal_.connect(self.some_slot)
         self.pushButton_save.clicked.connect(self.save_event)
+        
+        #These lines just set the date and time selection values to be the current date/time for
+        #user convienence
         self.dateEdit.setDate(QDate.currentDate())
         self.dateEdit_2.setDate(QDate.currentDate())
         self.timeEdit.setTime(QTime.currentTime())
         self.timeEdit_2.setTime(QTime.currentTime())
-
+        #The model is passed from the MainView so that the dialog can have the model save user data.
         self.m = model
 
 
     #Helpers
-    def convert_to_datetime_obj(self, day, time):
-        print(time)
-        print(day)
+    def convert_to_datetime_obj(self, day, time) -> datetime:
+        '''
+        Args: day (string) , time (string)
+        Returns: A datetime object
+        Purpose: Storing values at datetime objects means we can easily use datetime methods for various
+        functions, ex: easily check if a date falls before or after another date
+        '''
+        #Concatenate strings
         time_string = day + " " + time
+        #strptime accepts a string and format to construct a datetime object matching the string information
         datetime_object = datetime.datetime.strptime(time_string, '%a %b %d %Y %H:%M:%S')
 
         return datetime_object
-    #Slots
+        
+    #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
     @pyqtSlot()
     def save_event(self):
         title = self.plainTextEdit.toPlainText()
         #Convert start time entered to dt object
         startTime = self.timeEdit.time().toString()
-        #startTime_string = startTime.toString(self.timeEdit.displayFormat())
+
         startDate = self.dateEdit.date().toString()
-        #startDate_string = startDate.toString(self.dateEdit.displayFormat())
+
 
         start = self.convert_to_datetime_obj(startDate, startTime)
         #convert end time entered to dt object
         endTime = self.timeEdit_2.time().toString()
-        #endTime_string = endTime.toString(self.timeEdit_2.displayFormat())
+
         endDate = self.dateEdit_2.date().toString()
-        #endDate_string = endDate.toString(self.dateEdit_2.displayFormat())
 
         end = self.convert_to_datetime_obj(endDate, endTime)
         print()
@@ -64,14 +91,14 @@ class Event_Add_Window(QDialog):
 
 
 class Day_Window(QDialog):
-    def __init__(self, model, day, events):
+    def __init__(self, model: CalendarModel, day: str, events: []):
         super(Day_Window, self).__init__()
         loadUi(ui[2], self)
         self.m = model
         self.day = day
         self.events = events
         self.label_date.setText(calendar.month_name[(self.m.month)] + ' ' + self.day + ' ' + str(self.m.year))
-        #print(self.events)
+
         if self.events != None:
             for num in range(1, len(self.events)+1):
                 label = getattr(self, 'label_{}'.format(num))
@@ -105,7 +132,7 @@ class MainViewController(QMainWindow):
         self.buttonGroup_days.setExclusive(False)
         #Model
         now = datetime.date.today()
-        self.m = Model.CalendarModel(now.month, now.year)
+        self.m = CalendarModel(now.month, now.year)
 
         self.setWindowTitle('Calendar')
         #Buttons
@@ -144,7 +171,7 @@ class MainViewController(QMainWindow):
 
 
 
-    #Slots
+    #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
     @pyqtSlot()
     def add_event_button(self): #Opens the add_event pop up window
         self.add_window_h()
@@ -154,17 +181,19 @@ class MainViewController(QMainWindow):
     def next_month_button(self):
         self.m.next_month()
         self.refresh()
-
+        return
+    
     @pyqtSlot()
     def previous_month_button(self):
         self.m.prev_month()
         self.refresh()
-
+        return
+    
     @pyqtSlot()
     def day_button(self):
         abstract_button = self.sender()
         day = abstract_button.text()
-
+    
         events = self.m.get_day_events(day)
         day_dialog = Day_Window(self.m, day, events)
         day_dialog.exec()
