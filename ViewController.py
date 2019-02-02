@@ -20,7 +20,7 @@ ui elements. Elements referenced in this code are avaialable due to the call:
 This call is responsible for bringing those elements into the scope.
 ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
 '''
-
+ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
 '''
 This class inherits QDialog. QDialog widgets are usually created by an existing main view
 to handle user input or send a specific message, and then are closed. Their lifetime is short.
