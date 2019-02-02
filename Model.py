@@ -3,7 +3,17 @@ import shelve
 from Event import CalendarEvent
 
 class CalendarModel:         											#CalendarModel class
+    """
+    This is a class that will handle our CalendarModel.
+    """
     def __init__(self, month, year):     								#init
+        """
+        args: month, year
+        returns: N/A
+        side effects: sets up month and year and calls startup_data()
+        description: The __init__ function sets up the month and the
+        year and calls startup_data() to get everything ready to go.
+        """
         self.month = month  											#assign the month
         self.year = year                								#assign the year
         self.startup_data()             								#call startup data to get set up
@@ -11,6 +21,14 @@ class CalendarModel:         											#CalendarModel class
 
     #INIT/EXIT HELPERS
     def startup_data(self):           									#startup_data function
+
+        """
+        args: N/A
+        returns: N/A
+        side effects: creates and/or modifys s with key 'events'
+        description: This functions sets up the pickle file to hold a 'events' key
+        that will store events that are added by the user
+        """
         print("Model startup")            								#print to terminal confirming Model startup
         print("Year: " +str(self.year))   								#print the year the calendar is set to 
         print("Month: " +str(self.month)) 								#print the month the calendar is set to
@@ -25,12 +43,27 @@ class CalendarModel:         											#CalendarModel class
         return
 
     def exit_data(self):   												#exit_data function
+        """
+        args: N/A
+        returns: N/A
+        side effets: prints "Model exit" and closes the pickle
+        description: this file was used when exiting the program.
+        It would print "Model exit" and close down the pickle file.
+        """
         print("Model exit") 											#prints that model is exiting
         s.close()           											#close picked file
         return
 
     #Button responses/ setters
     def next_month(self):    											#moves to next month
+        """
+        args: N/A
+        returns: N/A
+        side effects: modifies month and/or year
+        description: advances the month by 1 and will wrap back
+        around to month 1 if the month is 13. If this happens,
+        the year will advance as well.
+        """
         self.month += 1      											#advance month by 1
         if self.month == 13:  											#if the month is 13, the next 3 lines will advance the year and then reset month to be 1
             self.year += 1
@@ -39,6 +72,14 @@ class CalendarModel:         											#CalendarModel class
 
         return
     def prev_month(self):  												#moves to the previous month
+        """
+        args: N/A
+        return: N/A
+        side effects: modifies month and/or year
+        description: This will go to th previous month. If the
+        month becomes 0, it will reset it to be 12 and it will
+        set the year to be the previous year.
+        """
         self.month -= 1		 											#move the month back by 1
         if self.month == 0:  											#if the month is 0, the next 3 lines will change the year to the prevous year and then reset the month to be 12
             self.year -= 1
@@ -46,6 +87,14 @@ class CalendarModel:         											#CalendarModel class
         return
 
     def add_event(self, title, start, end): 							#adds event at specified date (month, day)
+        """
+        args: title, start, end
+        returns: N/A
+        side effects: adds an event to the "events" key
+        description: This function will take a title,
+        a start time, and an end time and save it as
+        an event in the "events" key.
+        """
         																#Events should only be added if they are not duplicates
         s = shelve.open("data", writeback = True)  						#open pickle file
         print("Adding event:")  										#print out "Adding event:" and print current events
@@ -59,16 +108,39 @@ class CalendarModel:         											#CalendarModel class
 
     #Getters
     def get_year(self):   												#get the current year
+        """
+        args: N/A
+        returns: self.year
+        side effects: N/A
+        description: This function is a getter
+        that will return self.y
+        """
         
         
         return self.year 												#return the year
 
     def get_month(self):  												#get the current month
+        """    
+        args: N/A
+        returns: self.month
+        side effects: N/A
+        description: This function is a getter
+        that will return self.month.
+        """
         
        
         return self.month  												#return the month
 
     def get_day_events(self, day_num): #retrieves events and presents that to the user in the ViewController. returns none if no events matched.
+        """
+        args: day_num
+        returns: None or a list of events on a current day, month, year
+        side effects: N/A
+        description: This function checks to see if there is an event on a given day_num.
+        It does this by checking for the year, month, and day of the event and matches it to
+        the current day, month, and year. If it finds and event, it will return it. Otherwise,
+        it will return None.
+        """
         s = shelve.open("data", writeback = True)  						#open pickle file
         event_list = []  												#set up a new list called event_list
         for event in s['events']:
@@ -93,6 +165,13 @@ class CalendarModel:         											#CalendarModel class
         
     #Helpers
     def search_event(self, title, start, end): 							#Search for an event and return it's index or None
+        """
+        args: title, start, end
+        return: None or the index of an event
+        side effects: N/A
+        description: This function will search for an event given the title, start, and end.
+        If it finds an event, it will return its index. If nothing is found, it will return None.
+        """
        
         s = shelve.open("data", writeback = True)  						#open pickle file
         index = -1 														#set index to be -1
@@ -105,5 +184,13 @@ class CalendarModel:         											#CalendarModel class
 
 
     def delete_event(self, title, start, end): 							#deletes an event at specified date (month, day)
+        """
+        args: title, start, end
+        return: N/A
+        side effects: still under construction, but it should
+        remove an event from the "events" key.
+        description: This function should remove an event from
+        the "events" key, but it is still under construction.
+        """
 
         return
