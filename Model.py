@@ -188,10 +188,9 @@ class CalendarModel:         											#CalendarModel class
         """
         args: title, start, end
         return: N/A
-        side effects: still under construction, but it should
-        remove an event from the "events" key.
+        side effects: This iwll remove an event from the events key
         description: This function should remove an event from
-        the "events" key, but it is still under construction.
+        the "events" key.
         """
 
         s = shelve.open("data", writeback = True)                       #open pickle file
