@@ -188,7 +188,7 @@ class CalendarModel:         											#CalendarModel class
         """
         args: title, start, end
         return: N/A
-        side effects: This iwll remove an event from the events key
+        side effects: This will remove an event from the events key
         description: This function should remove an event from
         the "events" key.
         """
