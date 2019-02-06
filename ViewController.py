@@ -1,5 +1,6 @@
 #Isaac Lance 1-19-19
 #Kellie Hawks 1-27-19
+#Luyao Wang 1-28-19
 #Using https://github.com/mfitzp/15-minute-apps/blob/master/minesweeper/minesweeper.py
 #As a starting point to learn how good apps are designed
 
@@ -13,15 +14,13 @@ import calendar
 import datetime
 
 '''
-Table of UI's used by our app. ".ui" files are created using the QT Designer software
+Table of UI's used by our app. '.ui' files are created using the QT Designer software
 and can be converted to a .py file which can be human-read to determine the available
-ui elements. Elements referenced in this code are avaialable due to the call: 
-"loadUi(ui[x], self)"
+ui elements. Elements referenced in this code are avaialable due to the call:
+'loadUi(ui[x], self)'
 This call is responsible for bringing those elements into the scope.
 '''
 ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
-
-
 '''
 This class inherits QDialog. QDialog widgets are usually created by an existing main view
 to handle user input or send a specific message, and then are closed. Their lifetime is short.
@@ -33,15 +32,15 @@ class Event_Add_Window(QDialog):
         super(Event_Add_Window, self).__init__()
         #Load the correct ui (and therefore all it's elements)
         loadUi(ui[1], self)
-        '''
-        PyQT uses signals and slots to handle message passing between ui elements/widgets and 
+        """
+        PyQT uses signals and slots to handle message passing between ui elements/widgets and
         functions. In the following line, a pushButton has it's "clicked" signal connected to the
         slot "save_event"
         The single comment line above shows the relationship between this specific call and the types.
-        '''
+        """
         #   .nameOfButton___.signal_.connect(self.some_slot)
         self.pushButton_save.clicked.connect(self.save_event)
-        
+
         #These lines just set the date and time selection values to be the current date/time for
         #user convienence
         self.dateEdit.setDate(QDate.currentDate())
@@ -53,6 +52,7 @@ class Event_Add_Window(QDialog):
 
 
     #Helpers
+
     def convert_to_datetime_obj(self, day, time):
         '''
         args: day (string) , time (string)
@@ -66,17 +66,17 @@ class Event_Add_Window(QDialog):
         datetime_object = datetime.datetime.strptime(time_string, '%a %b %d %Y %H:%M:%S')
 
         return datetime_object
-        
+
     #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
     @pyqtSlot()
     def save_event(self):
-        '''
+        """
         args: N/A
         returns: N/A
         side effects: saves event info from the dialog to the model
         description: This function is called when a user clicks to save the event they are entering in the dialog
         it has no explicit arguments but the input fields are used. The model handles saving the event.
-        '''
+        """
         #Get title from the title text edit
         title = self.plainTextEdit.toPlainText()
         #Get start date/time and convert to datetime object
@@ -113,20 +113,20 @@ class Day_Window(QDialog):
                 label = getattr(self, 'label_{}'.format(num))
                 label.show()
                 ev = self.events[num-1]
-                
+
                 mystring = ev.title + ev.start.strftime('%a %b %d %Y %H:%M:%S')+ '   to   ' + ev.end.strftime('%a %b %d %Y %H:%M:%S')
                 print(mystring)
                 label.setText(mystring)
             for num in range(len(self.events)+1, 31):
                 label = getattr(self, 'label_{}'.format(num))
                 label.hide()
-        
+
         else:
             for num in range(1, 31):
                 label = getattr(self, 'label_{}'.format(num))
                 label.hide()
-                
-            
+
+
 
 
 
@@ -209,18 +209,18 @@ class MainViewController(QMainWindow):
         self.m.next_month()
         self.refresh()
         return
-    
+
     @pyqtSlot()
     def previous_month_button(self):
         self.m.prev_month()
         self.refresh()
         return
-    
+
     @pyqtSlot()
     def day_button(self):
         abstract_button = self.sender()
         day = abstract_button.text()
-    
+
         events = self.m.get_day_events(day)
         day_dialog = Day_Window(self.m, day, events)
         day_dialog.exec()
