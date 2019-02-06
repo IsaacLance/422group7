@@ -20,7 +20,9 @@ We recommend using a 64-bit (x64) processor to run the application.
 For those without python or pyqt5, they can be downloaded from these links.
 Brew can be used to quickly install pyqt5.
 https://www.python.org/
+
 https://brew.sh/
+
 https://pypi.org/project/PyQt5/
 
 To install pyqt5 run this bash command:
