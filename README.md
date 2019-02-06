@@ -80,6 +80,7 @@ It asserts if the number of entries added is the correct number.
 
 If it is incorrect it will show an error in the terminal. For details:https://docs.google.com/document/d/1Y512gUP_uNcVmjh-EibinXldxwDEUoGd5NDIIyF9q70/edit?usp=sharing
 
+
 The second test, 
 ```bash
 $ python test_model2.py
