@@ -17,6 +17,11 @@ Calendar is an personal calendar application. With it, you have a tool that can 
 
 This application is runnable on MacOS and Windows. It is implemented in Python ver 3.6. You need Python and PyQt5 to launch this application.
 We recommend using a 64-bit (x64) processor to run the application.
+For those without python or pyqt5, they can be downloaded from these links.
+Brew can be used to quickly install pyqt5.
+https://www.python.org/
+https://brew.sh/
+https://pypi.org/project/PyQt5/
 
 To install pyqt5 run this bash command:
 ```bash
