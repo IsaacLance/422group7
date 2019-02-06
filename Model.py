@@ -146,16 +146,25 @@ class CalendarModel:         										#CalendarModel class
         it will return None.
         """
         s = shelve.open("data", writeback = True)  						        #open pickle file
-        event_list = []  										#set up a new list called event_list
-        for event in s['events']:
+
+        event_dict = {}  										#set up a new list called event_list
+        for x in range(0, len(s['events'])):
+            '''
+            print('Title: ' + event.title)
+            print('Event  Input')
+            print(str(event.start.day) +'      '+ str(day_num))
+            print(str(event.start.month) +'      '+ str(self.month))
+            print(str(event.start.year) +'      '+ str(self.year))
+            '''
+            event = s['events'][x]
             if event.start.year == self.year and event.start.month == self.month and event.start.day == int(day_num):   #check if an event matches
             																											# the year, month, and day
-                event_list.append(event) 																				#if it does, add it to event_list
+                event_dict[x] = event																				#if it does, add it to event_list
 
-        if not event_list:  										 #return none if nothing is in the event list
+        if not event_dict:  										 #return none if nothing is in the event list
             return None
 
-        return (event_list)  												#return the event list if something is in it.
+        return (event_dict)  												#return the event list if something is in it.
 
     #Helpers
     def search_event(self, title, start, end): 							         #Search for an event and return it's index or None
@@ -190,6 +199,11 @@ class CalendarModel:         										#CalendarModel class
         index_delete_event = self.search_event(title,start,end)                                          #gets index of event using seatch_event function
         del s['events'][index_delete_event]                                                              #delete the event
         return None
+
+    def delete_event_at_index(self, index):
+        s = shelve.open("data", writeback = True)
+        del s['events'][index]
+        return
 
     def edit_existing_event(self,title, start, end, new_title=None, new_start=None, new_end=None):
         s = shelve.open("data", writeback = True)
