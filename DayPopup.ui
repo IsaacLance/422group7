@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>284</height>
+    <width>434</width>
+    <height>894</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,8 +51,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>341</width>
-        <height>702</height>
+        <width>408</width>
+        <height>805</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
@@ -67,6 +67,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -79,6 +82,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -93,6 +99,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -105,6 +114,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -119,6 +131,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -131,6 +146,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -145,6 +163,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -157,6 +178,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -171,6 +195,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -183,6 +210,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -197,6 +227,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -209,6 +242,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -223,6 +259,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -235,6 +274,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -249,6 +291,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -261,6 +306,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -275,6 +323,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -287,6 +338,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -301,6 +355,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -313,6 +370,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -327,6 +387,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -339,6 +402,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -353,6 +419,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -365,6 +434,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -379,6 +451,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -391,6 +466,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -405,6 +483,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -417,6 +498,9 @@
          </property>
          <property name="text">
           <string>TextLabel</string>
+         </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
        </item>
@@ -431,6 +515,9 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
        <item>
@@ -444,10 +531,32 @@
          <property name="text">
           <string>TextLabel</string>
          </property>
+         <property name="textInteractionFlags">
+          <set>Qt::TextSelectableByMouse</set>
+         </property>
         </widget>
        </item>
       </layout>
      </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton_delete">
+     <property name="minimumSize">
+      <size>
+       <width>119</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>119</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>Delete Event</string>
+     </property>
     </widget>
    </item>
   </layout>
