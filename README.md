@@ -45,30 +45,43 @@ Home page is shown below:
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Calendar.png)
 
 ### To add an event:
-On the home page, select button labeled Add Event
+On the home page, select button labeled "Add Event"
 
 This will direct you to a saving page labeled Dialog
 
 Enter the title, MM/DD/YY, HH:MM for the save events 
 
-Select Save button for save events
+Select "Save" button for save events
 
-Check the event has been saved or not, click the close button(red) on the top left page of Dialog, then click the day that
+Check the event has been saved or not, click the close button(red) on the top left page of "Dialog", then click the day that
 
 have been saved. For more details, see the Reviewing Events
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Add_date_popup.png)
 
 ### To view events on a given day:
-On the home page, click the day that you want to edit which can be navigated by using "Previous" and "Next" as well as "+" and "-" to change the year.
+On the home page, click the day that you want to edit which can be navigated by using "Previous" and "Next" as well as "+" and "-" to change the year
 
 Choose the day by click the day button
 
-Pop up a window labeled “Dialog”, it shows all events for that day
+Pop up a window labeled "Dialog”, it shows all events for that day
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/events.png)
 
-To close the widget, simply close the window by click the red button on the top left of the "Dialog"
+To close the widget, simply close the window by clicking the red button on the top left of the "Dialog"
+
+### To delete events on a given day:
+On the home page, choose the day with the event that you want to delete by click the day button
+
+Pop up a window labeled "Dialog", it shows all events for that day. 
+
+delete an event by click the dot 
+
+For more details:
+
+
+### To edit evetns on a given day: 
+On the home page, 
 
 ## Running the tests
 We have provided two tests to test the functionality of the calendar application.
