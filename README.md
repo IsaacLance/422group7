@@ -40,7 +40,7 @@ Home page is shown below:
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Calendar.png)
 
-To add an event:
+### To add an event:
 On the home page, select button labeled Add Event
 
 This will direct you to a saving page labeled Dialog
@@ -55,7 +55,7 @@ have been saved. For more details, see the Reviewing Events
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Add_date_popup.png)
 
-To view events on a given day:
+### To view events on a given day:
 On the home page, click the day that you want to edit which can be navigated by using "Previous" and "Next" as well as "+" and "-" to change the year.
 Choose the day by click the day button
 Pop up a window labeled “Dialog”, it shows all events for that day
