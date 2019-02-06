@@ -18,8 +18,9 @@ and can be converted to a .py file which can be human-read to determine the avai
 ui elements. Elements referenced in this code are avaialable due to the call: 
 "loadUi(ui[x], self)"
 This call is responsible for bringing those elements into the scope.
-ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
 '''
+ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
+
 
 '''
 This class inherits QDialog. QDialog widgets are usually created by an existing main view
@@ -52,12 +53,12 @@ class Event_Add_Window(QDialog):
 
 
     #Helpers
-    def convert_to_datetime_obj(self, day, time) -> datetime:
+    def convert_to_datetime_obj(self, day, time):
         '''
         args: day (string) , time (string)
         returns: A datetime object
+        side effects: N/A
         description: Storing values at datetime objects means we can easily use datetime methods for various
-        functions, ex: easily check if a date falls before or after another date
         '''
         #Concatenate strings
         time_string = day + " " + time
@@ -94,7 +95,12 @@ class Event_Add_Window(QDialog):
 
 
 class Day_Window(QDialog):
-    def __init__(self, model: CalendarModel, day: str, events: []):
+    def __init__(self, model, day, events):
+        '''
+        The Day_Window class is used whenever the user clicks a specific day button that is active.
+        It is passed a pointer to the model so that it can call model functions.
+        The window displays the given day and events on that day.
+        '''
         super(Day_Window, self).__init__()
         loadUi(ui[2], self)
         self.m = model
@@ -126,44 +132,62 @@ class Day_Window(QDialog):
 
 
 class MainViewController(QMainWindow):
-
+    '''
+    The MainViewController is the parent window of every other window. It's GUI is always present and visible,
+    but not always clickable when child windows have the focus. The window has 42 day buttons in a grid which 
+    can be clicked to open a child view, if they are valid buttons for a given month and year. There are also
+    buttons to change the displayed month and year, as well as an "add event" button to add events to the calendar.
+    '''
     def __init__(self):
-        #Super and load ui
+        #Super init and load the ui
         super(MainViewController, self).__init__()
         loadUi(ui[0], self)
-        #TEST
+        #PyQT has bugs when the buttonGroup is set to exclusive
         self.buttonGroup_days.setExclusive(False)
-        #Model
+        #Setup Model
         now = datetime.date.today()
         self.m = CalendarModel(now.month, now.year)
-
+        #Set title of window
         self.setWindowTitle('Calendar')
-        #Buttons
+        #Connect Buttons
         self.pushButton_plus.clicked.connect(self.next_year)
         self.pushButton_minus.clicked.connect(self.previous_year)
         self.pushButton_add.clicked.connect(self.add_event_button)
         self.pushButton_next.clicked.connect(self.next_month_button)
         self.pushButton_previous.clicked.connect(self.previous_month_button)
-        #Button groups
-        #self.buttonGroup_days.buttonClicked[QAbstractButton].connect(self.day_button)
-        self.refresh()
+        #Button group buttons
         for button in self.buttonGroup_days.buttons():
             button.clicked.connect(self.day_button)
+        #Update based on model data
+        self.refresh()                
 
-    #hello
     def refresh(self):
-        #Month, Year
+        '''
+        args: N/A
+        returns: N/A
+        side effects: labels and buttons update to match the model
+        description: refresh is the function called by the view controller whenever model data
+        has changed. This way, the user always sees a representation of the current model.
+        '''
+        #Set: Month, Year
         self.label_year.setText(str(self.m.year))
         self.label_month.setText(calendar.month_name[(self.m.month)])
-        for button in self.buttonGroup_days.buttons():
-            x = (int(button.objectName().split('_')[1]))
-            first_day, month_Days= calendar.monthrange(self.m.year, self.m.month)
-            #the example of monthrange
+        #An example of monthrange, the function that returns the number of days in a month and the day
+            #the month starts on:
             #>>> calendar.monthrange(2019, 1)
             #>>> (1, 31)
-
+            # "(1, 31)" is saying: (Tuesday, 31 days in that month)
+        first_day, month_Days= calendar.monthrange(self.m.year, self.m.month)
+        #Set: days
+        for button in self.buttonGroup_days.buttons():
+            #This line requires knowledge of the .ui file: the day buttons have names like pushButton_*
+            #where "*" is some string of an int 1-42. So this line extracts that int and puts it in x
+            x = (int(button.objectName().split('_')[1]))
+            #Fixing off by one error
             startDate = first_day + 1
+            #Getting last day
             endDate = month_Days + first_day
+            #Setting valid days/invalid days 
             if (x < startDate or x > endDate):
                 button.setText('')
                 button.setEnabled(False)
@@ -222,8 +246,6 @@ class MainViewController(QMainWindow):
         else:
             print("False")
         return
-
-    #Helpers
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
