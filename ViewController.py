@@ -250,7 +250,7 @@ class MainViewController(QMainWindow):
 
     #Window helpers
     def add_window_h(self):
-    '''
+        '''
         side effects: opens 
         description: Storing values at datetime objects means we can easily use datetime methods for various
         returns: a boolean whether self.accept() was called or not. (Whether the user clicked save or the "X")

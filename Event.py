@@ -13,4 +13,4 @@ class CalendarEvent():
         return (self.title == other.title) and (self.start == other.start) and (self.end == other.end)
         
     def __lt__(self, other):
-        return (self.title < other.title) and (self.start < other.start) and (self.end < other.end)
+        return (self.title < other.title) and (self.start < other.start)
