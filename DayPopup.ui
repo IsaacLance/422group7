@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>443</width>
-    <height>337</height>
+    <width>446</width>
+    <height>363</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,7 +51,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>417</width>
+        <width>420</width>
         <height>794</height>
        </rect>
       </property>
@@ -541,23 +541,40 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_delete">
-     <property name="minimumSize">
-      <size>
-       <width>119</width>
-       <height>0</height>
-      </size>
-     </property>
-     <property name="maximumSize">
-      <size>
-       <width>119</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>Delete Event</string>
-     </property>
-    </widget>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="pushButton_delete">
+       <property name="minimumSize">
+        <size>
+         <width>119</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>119</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Delete Event</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButton_edit">
+       <property name="maximumSize">
+        <size>
+         <width>119</width>
+         <height>32</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Edit Event</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </item>
   </layout>
  </widget>
