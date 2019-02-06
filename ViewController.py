@@ -20,13 +20,84 @@ ui elements. Elements referenced in this code are avaialable due to the call:
 'loadUi(ui[x], self)'
 This call is responsible for bringing those elements into the scope.
 '''
-ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui']
+ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui', 'EditPopup.ui']
 '''
 This class inherits QDialog. QDialog widgets are usually created by an existing main view
 to handle user input or send a specific message, and then are closed. Their lifetime is short.
 This window let's the user add a new event to the model.
 '''
 class Event_Add_Window(QDialog):
+    def __init__(self, model):
+        #Call super of QDialog
+        super(Event_Add_Window, self).__init__()
+        #Load the correct ui (and therefore all it's elements)
+        loadUi(ui[1], self)
+        """
+        PyQT uses signals and slots to handle message passing between ui elements/widgets and
+        functions. In the following line, a pushButton has it's "clicked" signal connected to the
+        slot "save_event"
+        The single comment line above shows the relationship between this specific call and the types.
+        """
+        #   .nameOfButton___.signal_.connect(self.some_slot)
+        self.pushButton_save.clicked.connect(self.save_event)
+
+        #These lines just set the date and time selection values to be the current date/time for
+        #user convienence
+        self.dateEdit.setDate(QDate.currentDate())
+        self.dateEdit_2.setDate(QDate.currentDate())
+        self.timeEdit.setTime(QTime.currentTime())
+        self.timeEdit_2.setTime(QTime.currentTime())
+        #The model is passed from the MainView so that the dialog can have the model save user data.
+        self.m = model
+
+
+    #Helpers
+
+    def convert_to_datetime_obj(self, day, time):
+        '''
+        args: day (string) , time (string)
+        returns: A datetime object
+        side effects: N/A
+        description: Storing values at datetime objects means we can easily use datetime methods for various
+        '''
+        #Concatenate strings
+        time_string = day + " " + time
+        #strptime accepts a string and format to construct a datetime object matching the string information
+        datetime_object = datetime.datetime.strptime(time_string, '%a %b %d %Y %H:%M:%S')
+
+        return datetime_object
+
+    #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
+    @pyqtSlot()
+    def save_event(self):
+        """
+        args: N/A
+        returns: N/A
+        side effects: saves event info from the dialog to the model, or nothing if invalid event
+        description: This function is called when a user clicks to save the event they are entering in the dialog
+        it has no explicit arguments but the input fields are used. The model handles saving the event.
+        """
+        #Get title from the title text edit
+        title = self.plainTextEdit.toPlainText()
+        #Get start date/time and convert to datetime object
+        startDate = self.dateEdit.date().toString()
+        startTime = self.timeEdit.time().toString()
+        start = self.convert_to_datetime_obj(startDate, startTime)
+        #Get end date/time and convert to datetime object
+        endDate = self.dateEdit_2.date().toString()
+        endTime = self.timeEdit_2.time().toString()
+        end = self.convert_to_datetime_obj(endDate, endTime)
+        #Test if valid event
+        if end < start:
+            print("Error: event ends before it starts")
+            return
+        #Call models add_event function to store the event
+        self.m.add_event(title, start, end)
+        #Self.accept makes the return code of exec "True" otherwise it's false (if the user were to exit the window)
+        self.accept()
+        return
+
+class Event_Edit_Window(QDialog):
     def __init__(self, model):
         #Call super of QDialog
         super(Event_Add_Window, self).__init__()
@@ -155,7 +226,16 @@ class Day_Window(QDialog):
 
         return
 
-
+    @pyqtSlot()
+    def edit_event(self):
+        '''
+        '''
+        for num in range(1, len(self.events)+2):
+            label = getattr(self, 'label_{}'.format(num))
+            label.setTextInteractionFlags(Qt.TextSelectableByMouse);
+            if label.hasSelectedText() != False:
+                self.m.edit_event_at_
+        
 
 
 
