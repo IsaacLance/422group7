@@ -30,7 +30,7 @@ class CalendarModel:         											#CalendarModel class
         returns: N/A
         side effects: creates and/or modifys s with key 'events'
         description: This functions sets up the pickle file to hold a 'events' key
-        that will store events that are added by the user 
+        that will store events that are added by the user
         """
         print("Model startup")            								#print to terminal confirming Model startup
         print("Year: " +str(self.year))   								#print the year the calendar is set to
@@ -95,8 +95,8 @@ class CalendarModel:         											#CalendarModel class
         side effects: adds an event to the "events" key
         description: This function will take a title,
         a start time, and an end time and save it as
-        an event in the "events" key by appending the event 
-        as a shelve. 
+        an event in the "events" key by appending the event
+        as a shelve.
         """
         																#Events should only be added if they are not duplicates
         s = shelve.open("data", writeback = True)  						#open pickle file
@@ -104,7 +104,8 @@ class CalendarModel:         											#CalendarModel class
         print(s['events'])
         e = CalendarEvent(title, start, end) 							#get event set up to be added
         print(e.title)      											#print title of event
-        s['events'].append(e) 											#append event to s with events key
+        s['events'].append(e)
+        s['events'].sort() 											#append event to s with events key
         print(s['events']) 												#print new current events
         s.close()  														#close pickle file
         return
