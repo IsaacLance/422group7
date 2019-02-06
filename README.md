@@ -41,11 +41,17 @@ Home page is shown below:
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Calendar.png)
 
 To add an event:
-On the home page, select button labeled Add Event  
-This will direct you to a saving page labeled Dialog 
+On the home page, select button labeled Add Event
+
+This will direct you to a saving page labeled Dialog
+
 Enter the title, MM/DD/YY, HH:MM for the save events 
+
 Select Save button for save events
-Check the event has been saved or not, click the close button(red) on the top left page of Dialog, then click the day that have been saved. For more details, see the Reviewing Events
+
+Check the event has been saved or not, click the close button(red) on the top left page of Dialog, then click the day that
+
+have been saved. For more details, see the Reviewing Events
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Add_date_popup.png)
 
