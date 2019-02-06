@@ -162,7 +162,7 @@ class CalendarModel:         										#CalendarModel class
         if not event_list:  										 #return none if nothing is in the event list
             return None
 
-        return sorted(event_list)  												#return the event list if something is in it.
+        return (event_list)  												#return the event list if something is in it.
 
     #Helpers
     def search_event(self, title, start, end): 							         #Search for an event and return it's index or None
