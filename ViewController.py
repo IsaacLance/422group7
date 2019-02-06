@@ -109,15 +109,20 @@ class Day_Window(QDialog):
         loadUi(ui[2], self)
         self.m = model
         self.day = day
-        self.events = events
+        if not events == None:
+            self.events = list(events.values())
+            self.indexes = list(events.keys())
+        else:
+            self.events = None
         self.label_date.setText(calendar.month_name[(self.m.month)] + ' ' + self.day + ' ' + str(self.m.year))
         self.pushButton_delete.clicked.connect(self.delete_event)
 
 
-        if self.events != None:
+        if not self.events == None:
             for num in range(1, len(self.events)+1):
                 label = getattr(self, 'label_{}'.format(num))
                 label.show()
+
                 ev = self.events[num-1]
 
                 mystring = ev.title + ev.start.strftime('%a %b %d %Y %H:%M:%S')+ '   to   ' + ev.end.strftime('%a %b %d %Y %H:%M:%S')
@@ -134,16 +139,20 @@ class Day_Window(QDialog):
 
     @pyqtSlot()
     def delete_event(self):
+        '''
+        args: N/A
+        return: N/A
+        side effect: This deletes and event from the data file and removed is from the ui.
+        description: This function is called when the user clicks the 'delete event' button. It checks if a label was selected and if so
+        the event is removed from the gui and removed from the data file that holds all of the events on that day
+        '''
         for num in range(1, len(self.events)+2):
             label = getattr(self, 'label_{}'.format(num))
             label.setTextInteractionFlags(Qt.TextSelectableByMouse);
             if label.hasSelectedText() != False:
-                print("this kind of works")
-                label.setStyleSheet('color: blue')
-                #ev = self.events[num-1]
-                
+                self.m.delete_event_at_index(self.indexes[num-1])
                 label.hide()
-                #self.m.delete_event(ev.title, ev.start.strftime('%a %b %d %Y %H:%M:%S'), ev.end.strftime('%a %b %d %Y %H:%M:%S'))
+
         return
 
 
@@ -230,6 +239,7 @@ class MainViewController(QMainWindow):
     def add_event_button(self): #Opens the add_event pop up window
         #TODO: Either use this sub-wrapper or delete it
         self.add_window_h()
+        self.refresh()
         return
 
     @pyqtSlot()
@@ -254,6 +264,7 @@ class MainViewController(QMainWindow):
         day_dialog.exec()
 
         abstract_button.toggle()
+        self.refresh()
         return
 
     @pyqtSlot()
