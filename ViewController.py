@@ -73,7 +73,7 @@ class Event_Add_Window(QDialog):
         """
         args: N/A
         returns: N/A
-        side effects: saves event info from the dialog to the model
+        side effects: saves event info from the dialog to the model, or nothing if invalid event
         description: This function is called when a user clicks to save the event they are entering in the dialog
         it has no explicit arguments but the input fields are used. The model handles saving the event.
         """
@@ -87,6 +87,10 @@ class Event_Add_Window(QDialog):
         endDate = self.dateEdit_2.date().toString()
         endTime = self.timeEdit_2.time().toString()
         end = self.convert_to_datetime_obj(endDate, endTime)
+        #Test if valid event
+        if end < start:
+            print("Error: event ends before it starts")
+            return
         #Call models add_event function to store the event
         self.m.add_event(title, start, end)
         #Self.accept makes the return code of exec "True" otherwise it's false (if the user were to exit the window)
@@ -193,7 +197,12 @@ class MainViewController(QMainWindow):
                 button.setEnabled(False)
             else:
                 button.setEnabled(True)
-                button.setText(str(x - first_day))
+                events = self.m.get_day_events(x - first_day)
+                if events == None:
+                    event_str = ""
+                else:
+                    event_str = "\nEvents: " + str(len(events))
+                button.setText(str(x - first_day) + "\n" + event_str)
         return
 
 
@@ -221,7 +230,7 @@ class MainViewController(QMainWindow):
     @pyqtSlot()
     def day_button(self):
         abstract_button = self.sender()
-        day = abstract_button.text()
+        day = abstract_button.text().split("\n")[0]
 
         events = self.m.get_day_events(day)
         day_dialog = Day_Window(self.m, day, events)
