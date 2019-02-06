@@ -69,14 +69,16 @@ To close the widget, simply close the window by click the red button on the top 
 ## Running the tests
 We have provided two tests to test the functionality of the calendar application.
 To run, open the file with python using the following bash command:
+
 ```bash
 $ python test_Model.py
 ```
+
 test_model.py tests if a event shows up if the database is cleared, and then added. 
+
 It asserts if the number of entries added is the correct number.
+
 If it is incorrect it will show an error in the terminal. For details:https://docs.google.com/document/d/1Y512gUP_uNcVmjh-EibinXldxwDEUoGd5NDIIyF9q70/edit?usp=sharing
-
-
 
 The second test, 
 ```bash
