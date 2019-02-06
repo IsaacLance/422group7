@@ -15,7 +15,7 @@ Calendar is an personal calendar application. With it, you have a tool that can 
 
 ## Installation
 
-This application is implemented in Python ver 3.6. You need Python and PyQt5 to launch this application.
+This application is runnable on MacOS and Windows. It is implemented in Python ver 3.6. You need Python and PyQt5 to launch this application.
 We recommend using a 64-bit (x64) processor to run the application.
 
 To install pyqt5 run this bash command:
