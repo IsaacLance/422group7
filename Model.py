@@ -148,13 +148,6 @@ class CalendarModel:         										#CalendarModel class
         s = shelve.open("data", writeback = True)  						        #open pickle file
         event_list = []  										#set up a new list called event_list
         for event in s['events']:
-            '''
-            print('Title: ' + event.title)
-            print('Event  Input')
-            print(str(event.start.day) +'      '+ str(day_num))
-            print(str(event.start.month) +'      '+ str(self.month))
-            print(str(event.start.year) +'      '+ str(self.year))
-            '''
             if event.start.year == self.year and event.start.month == self.month and event.start.day == int(day_num):   #check if an event matches
             																											# the year, month, and day
                 event_list.append(event) 																				#if it does, add it to event_list
