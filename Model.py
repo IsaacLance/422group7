@@ -1,5 +1,6 @@
 #Chandler Potter 1/21/19 CIS 422
 #Luyao Wang 1/28/2019
+#Kellie Hawks 1/28/2019
 
 import shelve
 from Event import CalendarEvent
@@ -29,7 +30,7 @@ class CalendarModel:         											#CalendarModel class
         returns: N/A
         side effects: creates and/or modifys s with key 'events'
         description: This functions sets up the pickle file to hold a 'events' key
-        that will store events that are added by the user
+        that will store events that are added by the user 
         """
         print("Model startup")            								#print to terminal confirming Model startup
         print("Year: " +str(self.year))   								#print the year the calendar is set to
@@ -89,12 +90,13 @@ class CalendarModel:         											#CalendarModel class
 
     def add_event(self, title, start, end): 							#adds event at specified date (month, day)
         """
-        args: title, start, end
+        args: string title, datetimeobject start, datetimeobject end
         returns: N/A
         side effects: adds an event to the "events" key
         description: This function will take a title,
         a start time, and an end time and save it as
-        an event in the "events" key.
+        an event in the "events" key by appending the event 
+        as a shelve. 
         """
         																#Events should only be added if they are not duplicates
         s = shelve.open("data", writeback = True)  						#open pickle file
@@ -116,8 +118,6 @@ class CalendarModel:         											#CalendarModel class
         description: This function is a getter
         that will return self.y
         """
-
-
         return self.year 												#return the year
 
     def get_month(self):  												#get the current month
@@ -128,8 +128,6 @@ class CalendarModel:         											#CalendarModel class
         description: This function is a getter
         that will return self.month.
         """
-
-
         return self.month  												#return the month
 
     def get_day_events(self, day_num): #retrieves events and presents that to the user in the ViewController. returns none if no events matched.
@@ -144,7 +142,7 @@ class CalendarModel:         											#CalendarModel class
         """
         s = shelve.open("data", writeback = True)  						#open pickle file
         event_list = []  												#set up a new list called event_list
-        for event in s['events']:
+        for event in s['events']:                                       #loop through events in event_list to get events that fall on a specific date
             '''
             print('Title: ' + event.title)
             print('Event  Input')
@@ -167,7 +165,7 @@ class CalendarModel:         											#CalendarModel class
     #Helpers
     def search_event(self, title, start, end): 							#Search for an event and return it's index or None
         """
-        args: title, start, end
+        args: string title, datetimeobject start, datetimeobject end
         return: None or the index of an event
         side effects: N/A
         description: This function will search for an event given the title, start, and end.
@@ -186,7 +184,7 @@ class CalendarModel:         											#CalendarModel class
 
     def delete_event(self, title, start, end): 							#deletes an event at specified date (month, day)
         """
-        args: title, start, end
+        args: string title, datetimeobject start, datetimeobject end
         return: N/A
         side effects: This will remove an event from the events key
         description: This function should remove an event from
@@ -206,8 +204,8 @@ class CalendarModel:         											#CalendarModel class
         description: This function should clear all events that been
         saved by user
         """
-        s = shelve.open("data", writeback = True)
-        s['events'].clear()
+        s = shelve.open("data", writeback = True)                       #opens pickle file
+        s['events'].clear()                                             #clears events in shelve
         return None
 
     def amount_of_saving_event(self):
@@ -217,5 +215,5 @@ class CalendarModel:         											#CalendarModel class
         side effects: return the length of saving Events
         description: This funciton should return the length of all saving events
         """
-        s = shelve.open("data", writeback = True)
-        return len(s['events'])
+        s = shelve.open("data", writeback = True)                       #opens shelve to access data
+        return len(s['events'])                                         #returns length of saved events
