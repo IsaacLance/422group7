@@ -66,7 +66,7 @@ $ python test_Model.py
 ```
 test_model.py tests if a event shows up if the database is cleared, and then added. 
 It asserts if the number of entries added is the correct number.
-If it is incorrect it will show an error in the terminal. For details:https://docs.google.com/document/d/19ywjcDnYFcTs7m-1KY0k-fvpsnkpAVgc4UXlSaZgO_4/edit
+If it is incorrect it will show an error in the terminal. For details:https://docs.google.com/document/d/1Y512gUP_uNcVmjh-EibinXldxwDEUoGd5NDIIyF9q70/edit
 
 
 
