@@ -125,7 +125,19 @@ class Event_Edit_Window(QDialog):
         #The model is passed from the MainView so that the dialog can have the model save user data.
         self.m = model
 
+    def convert_to_datetime_obj(self, day, time):
+        '''
+        args: day (string) , time (string)
+        returns: A datetime object
+        side effects: N/A
+        description: Storing values at datetime objects means we can easily use datetime methods for various
+        '''
+        #Concatenate strings
+        time_string = day + " " + time
+        #strptime accepts a string and format to construct a datetime object matching the string information
+        datetime_object = datetime.datetime.strptime(time_string, '%a %b %d %Y %H:%M:%S')
 
+        return datetime_object
  
     #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
     @pyqtSlot()
@@ -230,6 +242,7 @@ class Day_Window(QDialog):
             if label.isChecked() and label.isVisible():
                 editDialog = Event_Edit_Window(self.m, label.text())
                 if editDialog.exec():
+                    self.delete_event()
                     return
                 return
                 
