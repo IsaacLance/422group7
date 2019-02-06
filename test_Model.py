@@ -46,13 +46,30 @@ def test_get_day_events():
     c = CalendarModel(1,2019)
     print(c.get_day_events(12))
 
-
+def test_edit_existing_event():
+    """
+    Tests the Model 'edit_existing_event' method
+    """
+    title = "test"
+    c = CalendarModel(1,2019)
+    start = datetime.datetime(2019,9,12,0,0)
+    end = datetime.datetime(2019,10,12,0,0)
+    new_start = datetime.datetime(2019,11,5,0,0)
+    existing = c.edit_existing_event("test",start,end,None,new_start,None)
+    print(existing.start.month)
+    print(existing.start.day)
+    return None
 
 
 if __name__ == "__main__":
     print("test1:")
     test_add_event()
+    
     print("test2:")
     test_get_day_events()
+    
     print("test3:")
-    test_delete_event()
+    #test_delete_event()
+    
+    print("test4")
+    test_edit_existing_event()
