@@ -103,37 +103,30 @@ class Event_Edit_Window(QDialog):
         super(Event_Edit_Window, self).__init__()
         #Load the correct ui (and therefore all it's elements)
         loadUi(ui[3], self)
-        self.pushButton_save.clicked.connect(self.save_event)
+        self.pushButton_save.clicked.connect(self.edit_event)
 
         #These lines just set the date and time selection values to be the current date/time for
         #user convienence
-        print()
-        print(text)
-        print()
-        self.dateEdit.setDate(QDate.currentDate())
-        self.dateEdit_2.setDate(QDate.currentDate())
-        self.timeEdit.setTime(QTime.currentTime())
-        self.timeEdit_2.setTime(QTime.currentTime())
+
+        text = text.split("\n")
+        self.plainTextEdit.clear()
+        self.plainTextEdit.appendPlainText(text[0])
+        vals = text[1].split("   to   ")
+
+        date = QDate.fromString(vals[0][0:15], "ddd MMM dd yyyy")
+        time = QTime.fromString(vals[0][16:], "HH:mm:ss")
+        date2 = QDate.fromString(vals[1][0:15], "ddd MMM dd yyyy")
+        time2= QTime.fromString(vals[1][16:], "HH:mm:ss")
+        
+        self.dateEdit.setDate(date)
+        self.dateEdit_2.setDate(date2)
+        self.timeEdit.setTime(time)
+        self.timeEdit_2.setTime(time2)
         #The model is passed from the MainView so that the dialog can have the model save user data.
         self.m = model
 
 
-    #Helpers
-
-    def convert_to_datetime_obj(self, day, time):
-        '''
-        args: day (string) , time (string)
-        returns: A datetime object
-        side effects: N/A
-        description: Storing values at datetime objects means we can easily use datetime methods for various
-        '''
-        #Concatenate strings
-        time_string = day + " " + time
-        #strptime accepts a string and format to construct a datetime object matching the string information
-        datetime_object = datetime.datetime.strptime(time_string, '%a %b %d %Y %H:%M:%S')
-
-        return datetime_object
-
+ 
     #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
     @pyqtSlot()
     def edit_event(self):
@@ -193,7 +186,6 @@ class Day_Window(QDialog):
                 ev = self.events[num-1]
 
                 mystring = ev.title + ev.start.strftime('%a %b %d %Y %H:%M:%S')+ '   to   ' + ev.end.strftime('%a %b %d %Y %H:%M:%S')
-                print(mystring)
                 label.setText(mystring)
                 label.show()
                 
@@ -236,8 +228,8 @@ class Day_Window(QDialog):
             label = getattr(self, 'radioButton_{}'.format(num))
             
             if label.isChecked() and label.isVisible():
-                editDialog = Event_Edit_Window(self.m, label.text)
-                if editDialog.exec:
+                editDialog = Event_Edit_Window(self.m, label.text())
+                if editDialog.exec():
                     return
                 return
                 
