@@ -110,7 +110,7 @@ class Event_Edit_Window(QDialog):
 
         text = text.split("\n")
         self.plainTextEdit.clear()
-        self.plainTextEdit.appendPlainText(text[0])
+        self.plainTextEdit.appendPlainText(text[0] + '\n')
         vals = text[1].split("   to   ")
 
         date = QDate.fromString(vals[0][0:15], "ddd MMM dd yyyy")
