@@ -78,7 +78,9 @@ test_model.py tests if a event shows up if the database is cleared, and then add
 
 It asserts if the number of entries added is the correct number.
 
-If it is incorrect it will show an error in the terminal. For details:https://docs.google.com/document/d/1Y512gUP_uNcVmjh-EibinXldxwDEUoGd5NDIIyF9q70/edit?usp=sharing
+If it is incorrect it will show an error in the terminal. 
+
+For details:https://docs.google.com/document/d/1Y512gUP_uNcVmjh-EibinXldxwDEUoGd5NDIIyF9q70/edit?usp=sharing
 
 
 The second test, 
@@ -86,7 +88,10 @@ The second test,
 $ python test_model2.py
 ```
 test_model2.py puts the application under more rigorous tests. 
+
 Testing the order and type of arguments given to the application.
+
+For details:https://docs.google.com/document/d/1en7JqqamzUt-80UYikfeTAWCwBuxP8Xm4Ha9bx6ElAc/edit?usp=sharing
 
 ## Contributing
 Pull requests are welcome after April 1st, 2019. For major changes, please open an issue first to discuss what you would like to change.
