@@ -57,12 +57,14 @@ have been saved. For more details, see the Reviewing Events
 
 ### To view events on a given day:
 On the home page, click the day that you want to edit which can be navigated by using "Previous" and "Next" as well as "+" and "-" to change the year.
+
 Choose the day by click the day button
+
 Pop up a window labeled “Dialog”, it shows all events for that day
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/events.png)
 
-To close the widget, simply close the window
+To close the widget, simply close the window by click the red button on the top left of the "Dialog"
 
 ## Running the tests
 We have provided two tests to test the functionality of the calendar application.
