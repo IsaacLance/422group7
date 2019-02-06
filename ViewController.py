@@ -20,7 +20,7 @@ ui elements. Elements referenced in this code are avaialable due to the call:
 'loadUi(ui[x], self)'
 This call is responsible for bringing those elements into the scope.
 '''
-ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui', 'EditPopup.ui']
+ui = ['L0-version1.ui', 'AddEventPopup0.ui', 'DayPopup.ui', 'EditPopup.ui', 'DayPopupRadio.ui']
 '''
 This class inherits QDialog. QDialog widgets are usually created by an existing main view
 to handle user input or send a specific message, and then are closed. Their lifetime is short.
@@ -98,22 +98,18 @@ class Event_Add_Window(QDialog):
         return
 
 class Event_Edit_Window(QDialog):
-    def __init__(self, model):
+    def __init__(self, model, text):
         #Call super of QDialog
-        super(Event_Add_Window, self).__init__()
+        super(Event_Edit_Window, self).__init__()
         #Load the correct ui (and therefore all it's elements)
-        loadUi(ui[1], self)
-        """
-        PyQT uses signals and slots to handle message passing between ui elements/widgets and
-        functions. In the following line, a pushButton has it's "clicked" signal connected to the
-        slot "save_event"
-        The single comment line above shows the relationship between this specific call and the types.
-        """
-        #   .nameOfButton___.signal_.connect(self.some_slot)
+        loadUi(ui[3], self)
         self.pushButton_save.clicked.connect(self.save_event)
 
         #These lines just set the date and time selection values to be the current date/time for
         #user convienence
+        print()
+        print(text)
+        print()
         self.dateEdit.setDate(QDate.currentDate())
         self.dateEdit_2.setDate(QDate.currentDate())
         self.timeEdit.setTime(QTime.currentTime())
@@ -140,7 +136,7 @@ class Event_Edit_Window(QDialog):
 
     #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
     @pyqtSlot()
-    def save_event(self):
+    def edit_event(self):
         """
         args: N/A
         returns: N/A
@@ -177,7 +173,7 @@ class Day_Window(QDialog):
         The window displays the given day and events on that day.
         '''
         super(Day_Window, self).__init__()
-        loadUi(ui[2], self)
+        loadUi(ui[4], self)
         self.m = model
         self.day = day
         if not events == None:
@@ -187,25 +183,27 @@ class Day_Window(QDialog):
             self.events = None
         self.label_date.setText(calendar.month_name[(self.m.month)] + ' ' + self.day + ' ' + str(self.m.year))
         self.pushButton_delete.clicked.connect(self.delete_event)
+        self.pushButton_edit.clicked.connect(self.edit_event)
 
 
         if not self.events == None:
             for num in range(1, len(self.events)+1):
-                label = getattr(self, 'label_{}'.format(num))
-                label.show()
-
+                label = getattr(self, 'radioButton_{}'.format(num))
+                
                 ev = self.events[num-1]
 
                 mystring = ev.title + ev.start.strftime('%a %b %d %Y %H:%M:%S')+ '   to   ' + ev.end.strftime('%a %b %d %Y %H:%M:%S')
                 print(mystring)
                 label.setText(mystring)
-            for num in range(len(self.events)+1, 31):
-                label = getattr(self, 'label_{}'.format(num))
+                label.show()
+                
+            for num in range(len(self.events)+1, 26):
+                label = getattr(self, 'radioButton_{}'.format(num))
                 label.hide()
 
         else:
-            for num in range(1, 31):
-                label = getattr(self, 'label_{}'.format(num))
+            for num in range(1, 26):
+                label = getattr(self, 'radioButton_{}'.format(num))
                 label.hide()
 
     @pyqtSlot()
@@ -217,24 +215,32 @@ class Day_Window(QDialog):
         description: This function is called when the user clicks the 'delete event' button. It checks if a label was selected and if so
         the event is removed from the gui and removed from the data file that holds all of the events on that day
         '''
+        if not self.events:
+            return
         for num in range(1, len(self.events)+2):
-            label = getattr(self, 'label_{}'.format(num))
-            label.setTextInteractionFlags(Qt.TextSelectableByMouse);
-            if label.hasSelectedText() != False:
+            label = getattr(self, 'radioButton_{}'.format(num))
+            
+            if label.isChecked() and label.isVisible():
                 self.m.delete_event_at_index(self.indexes[num-1])
                 label.hide()
-
+                label.setChecked(False)
         return
 
     @pyqtSlot()
     def edit_event(self):
         '''
         '''
+        if not self.events:
+            return
         for num in range(1, len(self.events)+2):
-            label = getattr(self, 'label_{}'.format(num))
-            label.setTextInteractionFlags(Qt.TextSelectableByMouse);
-            if label.hasSelectedText() != False:
-                self.m.edit_event_at_
+            label = getattr(self, 'radioButton_{}'.format(num))
+            
+            if label.isChecked() and label.isVisible():
+                editDialog = Event_Edit_Window(self.m, label.text)
+                if editDialog.exec:
+                    return
+                return
+                
         
 
 
