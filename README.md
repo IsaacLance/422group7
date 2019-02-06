@@ -75,13 +75,17 @@ On the home page, choose the day with the event that you want to delete by click
 
 Pop up a window labeled "Dialog", it shows all events for that day. 
 
-delete an event by click the dot 
+delete an event by click the dot and click the "delete" button 
+
+
 
 For more details:
 
 
 ### To edit evetns on a given day: 
-On the home page, 
+On the same day event page, click "edit" button to edit events
+
+For more details:
 
 ## Running the tests
 We have provided two tests to test the functionality of the calendar application.
