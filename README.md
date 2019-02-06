@@ -40,34 +40,47 @@ Home page is shown below:
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Calendar.png)
 
-To add an event:
-On the home page, select button labeled Add Event  
-This will direct you to a saving page labeled Dialog 
+### To add an event:
+On the home page, select button labeled Add Event
+
+This will direct you to a saving page labeled Dialog
+
 Enter the title, MM/DD/YY, HH:MM for the save events 
+
 Select Save button for save events
-Check the event has been saved or not, click the close button(red) on the top left page of Dialog, then click the day that have been saved. For more details, see the Reviewing Events
+
+Check the event has been saved or not, click the close button(red) on the top left page of Dialog, then click the day that
+
+have been saved. For more details, see the Reviewing Events
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/Add_date_popup.png)
 
-To view events on a given day:
+### To view events on a given day:
 On the home page, click the day that you want to edit which can be navigated by using "Previous" and "Next" as well as "+" and "-" to change the year.
+
 Choose the day by click the day button
+
 Pop up a window labeled “Dialog”, it shows all events for that day
 
 ![alt text](https://github.com/IsaacLance/422group7/blob/master/events.png)
 
-To close the widget, simply close the window
+To close the widget, simply close the window by click the red button on the top left of the "Dialog"
 
 ## Running the tests
 We have provided two tests to test the functionality of the calendar application.
 To run, open the file with python using the following bash command:
+
 ```bash
 $ python test_Model.py
 ```
-test_model.py tests if a event shows up if the database is cleared, and then added. 
-It asserts if the number of entries added is the correct number.
-If it is incorrect it will show an error in the terminal. For details:https://docs.google.com/document/d/1Y512gUP_uNcVmjh-EibinXldxwDEUoGd5NDIIyF9q70/edit
 
+test_model.py tests if a event shows up if the database is cleared, and then added. 
+
+It asserts if the number of entries added is the correct number.
+
+If it is incorrect it will show an error in the terminal. 
+
+For details:https://docs.google.com/document/d/1Y512gUP_uNcVmjh-EibinXldxwDEUoGd5NDIIyF9q70/edit?usp=sharing
 
 
 The second test, 
@@ -75,7 +88,10 @@ The second test,
 $ python test_model2.py
 ```
 test_model2.py puts the application under more rigorous tests. 
+
 Testing the order and type of arguments given to the application.
+
+For details:https://docs.google.com/document/d/1en7JqqamzUt-80UYikfeTAWCwBuxP8Xm4Ha9bx6ElAc/edit?usp=sharing
 
 ## Contributing
 Pull requests are welcome after April 1st, 2019. For major changes, please open an issue first to discuss what you would like to change.
