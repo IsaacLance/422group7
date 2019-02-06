@@ -111,6 +111,8 @@ class Day_Window(QDialog):
         self.day = day
         self.events = events
         self.label_date.setText(calendar.month_name[(self.m.month)] + ' ' + self.day + ' ' + str(self.m.year))
+        self.pushButton_delete.clicked.connect(self.delete_event)
+
 
         if self.events != None:
             for num in range(1, len(self.events)+1):
@@ -130,6 +132,21 @@ class Day_Window(QDialog):
                 label = getattr(self, 'label_{}'.format(num))
                 label.hide()
 
+    @pyqtSlot()
+    def delete_event(self):
+        for num in range(1, len(self.events)+2):
+            label = getattr(self, 'label_{}'.format(num))
+            label.setTextInteractionFlags(Qt.TextSelectableByMouse);
+            if label.hasSelectedText() != False:
+                print("this kind of works")
+                label.setStyleSheet('color: blue')
+                #ev = self.events[num-1]
+                
+                label.hide()
+                #self.m.delete_event(ev.title, ev.start.strftime('%a %b %d %Y %H:%M:%S'), ev.end.strftime('%a %b %d %Y %H:%M:%S'))
+        return
+
+
 
 
 
@@ -138,7 +155,7 @@ class Day_Window(QDialog):
 class MainViewController(QMainWindow):
     '''
     The MainViewController is the parent window of every other window. It's GUI is always present and visible,
-    but not always clickable when child windows have the focus. The window has 42 day buttons in a grid which 
+    but not always clickable when child windows have the focus. The window has 42 day buttons in a grid which
     can be clicked to open a child view, if they are valid buttons for a given month and year. There are also
     buttons to change the displayed month and year, as well as an "add event" button to add events to the calendar.
     '''
@@ -163,7 +180,7 @@ class MainViewController(QMainWindow):
         for button in self.buttonGroup_days.buttons():
             button.clicked.connect(self.day_button)
         #Update based on model data
-        self.refresh()                
+        self.refresh()
 
     def refresh(self):
         '''
@@ -191,7 +208,7 @@ class MainViewController(QMainWindow):
             startDate = first_day + 1
             #Getting last day
             endDate = month_Days + first_day
-            #Setting valid days/invalid days 
+            #Setting valid days/invalid days
             if (x < startDate or x > endDate):
                 button.setText('')
                 button.setEnabled(False)
@@ -260,7 +277,7 @@ class MainViewController(QMainWindow):
     #Window helpers
     def add_window_h(self):
         '''
-        side effects: opens 
+        side effects: opens
         description: Storing values at datetime objects means we can easily use datetime methods for various
         returns: a boolean whether self.accept() was called or not. (Whether the user clicked save or the "X")
         '''
