@@ -197,10 +197,12 @@ class MainViewController(QMainWindow):
         return
 
 
-
+    #
     #pyqtSlots (the decorator wraps these functions in a function connecting them to signals)
+    #
     @pyqtSlot()
     def add_event_button(self): #Opens the add_event pop up window
+        #TODO: Either use this sub-wrapper or delete it
         self.add_window_h()
         return
 
@@ -230,22 +232,33 @@ class MainViewController(QMainWindow):
 
     @pyqtSlot()
     def previous_year(self):
+        '''
+        side effects: the model's year goes down by 1 and the view is refreshed
+        description:  Call on the model to decrease the year by 1
+        '''
         self.m.year -= 1
         self.refresh()
 
     @pyqtSlot()
     def next_year(self):
+        '''
+        side effects: the model's year goes up by 1 and the view is refreshed
+        description:  Call on the model to increase the year by 1
+        '''
         self.m.year += 1
         self.refresh()
 
     #Window helpers
     def add_window_h(self):
+    '''
+        side effects: opens 
+        description: Storing values at datetime objects means we can easily use datetime methods for various
+        returns: a boolean whether self.accept() was called or not. (Whether the user clicked save or the "X")
+        '''
         addDialog = Event_Add_Window(self.m)
         if addDialog.exec():
-            print("True")
-        else:
-            print("False")
-        return
+            return(True)
+        return False
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
